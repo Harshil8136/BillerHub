@@ -59,6 +59,10 @@ const dom = {
     toggleOfflineMode: document.getElementById('toggleOfflineMode'),
     toggleAnalytics: document.getElementById('toggleAnalytics'),
     toggleCompactDensity: document.getElementById('toggleCompactDensity'),
+    toggleDebugLog: document.getElementById('toggleDebugLog'),
+
+    // Debug
+    debugLog: document.getElementById('debugLog'),
 
     // Favorites
     favoritesSection: document.getElementById('favoritesSection'),
@@ -72,6 +76,11 @@ const dom = {
 
 // --- CORE LOGIC & EVENT HANDLERS ---
 
+/**
+ * Handles user input in the search field.
+ * UPDATED: Now supports both asynchronous (Worker) and synchronous (main-thread)
+ * search methods, completing the hybrid search system.
+ */
 function handleSearchInput() {
     if (!state.settings.suggestionsEnabled) {
         UI.clearSuggestions();
@@ -83,15 +92,19 @@ function handleSearchInput() {
         return;
     }
     
+    // Use the appropriate search method based on what was initialized
     if (searchWorker) {
+        // Asynchronous Path: Send message to the worker
         searchWorker.postMessage({ type: 'SEARCH', payload: { query } });
+    } else if (searchService) {
+        // Synchronous Path: Use the main-thread fallback
+        const results = searchService.search(query);
+        const minimalResults = results.map(result => result.item); // Unpack Fuse.js results
+        state.currentSuggestions = minimalResults;
+        UI.renderSuggestions(state.currentSuggestions, query);
     }
 }
 
-/**
- * Selects and displays a biller.
- * UPDATED: Wrapped in a try-catch block to prevent errors from bad data.
- */
 function selectBillerById(id) {
     try {
         const biller = DataHelpers.getBillerById(BILLERS, id);
