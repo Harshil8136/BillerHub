@@ -11,11 +11,50 @@
     
     <title>Ultimate Biller Hub</title>
     
-    <link rel="stylesheet" href="./src/theme.css">
-    <link rel="stylesheet" href="./src/styles.css">
-    <link rel="stylesheet" href="./src/notes.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@700&display=swap">
+    <link rel="stylesheet" href="./src/css/theme.css">
+    <link rel="stylesheet" href="./src/css/styles.css">
+    <link rel="stylesheet" href="./src/css/notes.css">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+      .debug-log {
+        position: fixed;
+        bottom: 10px;
+        left: 10px;
+        width: clamp(300px, 40vw, 450px);
+        max-height: 250px;
+        background-color: rgba(22, 27, 34, 0.9);
+        color: #79c0ff;
+        font-family: monospace;
+        font-size: 12px;
+        border-radius: var(--radius-md);
+        padding: 0.75rem;
+        overflow-y: auto;
+        z-index: 9999;
+        border: 1px solid var(--card-border);
+        box-shadow: 0 8px 16px var(--shadow-color);
+        opacity: 0;
+        transform: translateY(10px);
+        pointer-events: none;
+        transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+      }
+      .debug-log:not([hidden]) {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .debug-log p {
+        margin: 0 0 4px;
+        padding: 0 0 4px;
+        border-bottom: 1px dotted #30363d;
+        white-space: pre-wrap;
+        word-break: break-all;
+      }
+      .debug-log p:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+      }
+    </style>
 </head>
 <body>
 
@@ -44,18 +83,19 @@
                             <div class="switch-track"><div class="switch-handle"></div></div>
                         </label>
                         <label class="toggle-switch">
-                            <input type="checkbox" id="toggleNotifications">
-                            <span class="switch-label">Enable Notifications</span>
-                            <div class="switch-track"><div class="switch-handle"></div></div>
-                        </label>
-                        <label class="toggle-switch">
-                            <input type="checkbox" id="toggleOfflineMode">
-                            <span class="switch-label">Offline Mode (Testing)</span>
+                            <input type="checkbox" id="toggleCompactDensity">
+                            <span class="switch-label">Compact Density</span>
                             <div class="switch-track"><div class="switch-handle"></div></div>
                         </label>
                         <label class="toggle-switch">
                             <input type="checkbox" id="toggleAnalytics" checked>
-                            <span class="switch-label">Show Usage Analytics</span>
+                            <span class="switch-label">Show Analytics</span>
+                            <div class="switch-track"><div class="switch-handle"></div></div>
+                        </label>
+                        <hr style="border-color: var(--card-border); margin: 0.5rem 0;">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="toggleDebugLog">
+                            <span class="switch-label">Show Debug Log</span>
                             <div class="switch-track"><div class="switch-handle"></div></div>
                         </label>
                     </div>
@@ -115,8 +155,7 @@
         </div>
     </div>
 
-    <aside id="toolsPanel" class="drawer drawer-right" role="complementary" aria-labelledby="tools-header" hidden>
-    </aside>
+    <aside id="toolsPanel" class="drawer" role="complementary" aria-labelledby="tools-header"></aside>
 
     <template id="toolsPanelTemplate">
         <div class="drawer-header">
@@ -134,21 +173,24 @@
             </section>
         </div>
     </template>
+    
+    <div id="debugLog" class="debug-log" hidden></div>
 
-    <script src="./src/fuse.min.js"></script>
-    <script src="./src/billers.js"></script>
-    <script src="./src/kb-articles.js"></script>
-    <script src="./src/locations.js"></script>
+    <script src="./src/js/lib/fuse.min.js"></script>
+    <script src="./src/js/data/kb-articles.js"></script>
+    <script src="./src/js/data/locations.js"></script>
+    <script src="./src/js/core/utils.js"></script>
+    <script src="./src/js/core/db.js"></script>
+    <script src="./src/js/core/virtual-list.js"></script>
+    <script src="./src/js/core/app-core.js"></script>
+    <script src="./src/js/core/data-helpers.js"></script>
+    <script src="./src/js/features/location-feature.js"></script>
+    <script src="./src/js/features/notes-feature.js"></script>
+    <script src="./src/js/features/app-features.js"></script>
+    <script src="./src/js/ui/ui-notes.js"></script>
+    <script src="./src/js/ui/ui-components.js"></script>
     <script src="./src/live/BGE.js"></script>
-    <script src="./src/utils.js"></script>
-    <script src="./src/data-helpers.js"></script>
-    <script src="./src/location-feature.js"></script>
-    <script src="./src/notes-feature.js"></script>
-    <script src="./src/app-core.js"></script>
-    <script src="./src/app-features.js"></script>
-    <script src="./src/ui-notes.js"></script>
-    <script src="./src/ui-components.js"></script>
-    <script src="./src/app-main.js"></script>
+    <script src="./src/js/main/app-main.js"></script>
     
 </body>
 </html>
