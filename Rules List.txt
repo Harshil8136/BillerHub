@@ -44,3 +44,46 @@ A clear diagnosis of the problem or an outline of the new feature.
 A proposed solution, detailing the implementation strategy.
 A complete list of all new and modified files.
 Approval is Mandatory: The AI must not generate any code until the user has explicitly reviewed and approved the plan.
+
+
+
+Directory:
+
+ultimate-biller-hub/
+├── index.html              // Main application entry point
+├── sw.js                   // Service Worker for offline functionality
+└── src/
+    ├── assets/
+    │   └── svg/
+    │       ├── ach.svg
+    │       ├── amex.svg
+    │       └── ... (other payment logos)
+    ├── css/
+    │   ├── notes.css       // Styles specific to the notes component
+    │   ├── styles.css      // Core layout, component, and responsive styles
+    │   └── theme.css       // CSS variables for light/dark themes
+    ├── js/
+    │   ├── core/
+    │   │   ├── app-core.js   // Global state, DOM cache, core handlers
+    │   │   ├── data-helpers.js // Functions for sorting/filtering data
+    │   │   ├── db.js         // NEW: Module for IndexedDB logic
+    │   │   ├── utils.js      // General utility functions (debounce, etc.)
+    │   │   └── virtual-list.js // NEW: Reusable virtual rendering engine
+    │   ├── data/
+    │   │   ├── billers-a-c.js  // NEW: Sharded biller data
+    │   │   ├── billers-d-f.js  // NEW: ...and so on
+    │   │   ├── kb-articles.js
+    │   │   └── locations.js
+    │   ├── features/
+    │   │   ├── app-features.js   // Logic for Settings, Analytics, etc.
+    │   │   ├── location-feature.js
+    │   │   └── notes-feature.js
+    │   ├── main/
+    │   │   └── app-main.js   // Final script; initializes the application
+    │   ├── ui/
+    │   │   ├── ui-components.js // Main UI rendering object
+    │   │   └── ui-notes.js      // Renders the notes component UI
+    │   └── workers/
+    │       └── search.worker.js // NEW: Handles search in a background thread
+    └── live/
+        └── BGE.js            // Biller-specific detailed notes data
