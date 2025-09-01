@@ -41,7 +41,6 @@ const Utils = {
   onOfflineStatusChange(callback) {
     window.addEventListener('online', () => callback(true));
     window.addEventListener('offline', () => callback(false));
-    // Also call it once on init to set the initial state
     callback(navigator.onLine);
   },
 
@@ -55,7 +54,9 @@ const Utils = {
       return null;
     }
     const frequency = history.reduce((acc, item) => {
-      acc[item.tla] = (acc[item.tla] || 0) + 1;
+      if (item && item.tla) {
+        acc[item.tla] = (acc[item.tla] || 0) + 1;
+      }
       return acc;
     }, {});
 
@@ -69,7 +70,6 @@ const Utils = {
       }
     }
 
-    // Don't predict the term that was just searched
     if (prediction === history[history.length - 1]?.tla) {
       return null;
     }
@@ -92,4 +92,22 @@ const Utils = {
       timeout = setTimeout(() => func.apply(context, args), wait);
     };
   },
+
+  /**
+   * Appends a message to an on-screen debug log for troubleshooting.
+   * @param {string} message The message to log.
+   */
+  debugLog(message) {
+    // This function relies on an element with id="debugLog" in index.html
+    const logContainer = document.getElementById('debugLog');
+    if (!logContainer) return;
+
+    const timestamp = new Date().toLocaleTimeString();
+    const entry = document.createElement('p');
+    entry.textContent = `[${timestamp}] ${message}`;
+    
+    logContainer.appendChild(entry);
+    // Auto-scroll to the latest message
+    logContainer.scrollTop = logContainer.scrollHeight;
+  }
 };
