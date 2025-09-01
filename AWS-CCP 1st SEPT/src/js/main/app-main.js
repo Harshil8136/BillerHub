@@ -13,13 +13,12 @@ document.addEventListener('DOMContentLoaded', init);
 
 /**
  * Main initialization function.
- * UPDATED: Refactored to use a .then() promise chain for greater robustness.
- * This prevents the app from stalling on the initial database check.
+ * This has been hardened to be "bulletproof", handling failures at every
+ * asynchronous step (DB, file loading) to prevent the app from stalling.
  */
 function init() {
     try {
-        console.log("Ultimate Biller Hub initializing...");
-        // Initialize components that don't depend on biller data
+        Utils.debugLog('Initializing application...');
         Features.Settings.init();
         LocationFeature.init();
         UI.Theme.init();
@@ -27,72 +26,78 @@ function init() {
         dom.searchInput.disabled = true;
         dom.searchInput.placeholder = "Loading data...";
 
-        // 1. TRY TO GET DATA FROM INDEXEDDB FIRST
+        Utils.debugLog('Checking IndexedDB for cached billers...');
         DB.get('billers-cache')
           .then(cachedBillers => {
             if (cachedBillers && cachedBillers.length > 0) {
-                console.log("Loaded billers from IndexedDB cache.");
+                Utils.debugLog('Cache hit. Using cached data.');
                 BILLERS = cachedBillers;
-                onDataReady(); // Data is ready, initialize the rest of the app
+                onDataReady();
             } else {
-                console.log("No cache found. Loading billers from files...");
-                // 2. FALLBACK TO LOADING FROM FILES
-                loadBillerData(() => {
-                    // 3. SAVE TO INDEXEDDB FOR NEXT TIME
-                    console.log("Saving billers to IndexedDB for next visit.");
-                    DB.set('billers-cache', BILLERS);
-                    onDataReady(); // Data is now ready
-                });
+                Utils.debugLog('Cache miss. Loading from files...');
+                loadBillerData(); // This now calls onDataReady internally
             }
           })
           .catch(error => {
+            Utils.debugLog('DB check failed. Falling back to files.');
             console.error("IndexedDB check failed. Falling back to loading from files.", error);
-            // If the database fails for any reason, load from files as a fallback.
-            loadBillerData(onDataReady);
+            loadBillerData(); // Fallback if DB is inaccessible
           });
 
     } catch (error) {
         console.error("Fatal error during application initialization:", error);
+        Utils.debugLog(`FATAL: ${error.message}`);
         document.body.innerHTML = `<div style="padding: 2rem; text-align: center;"><h1>Application Error</h1><p>Something went wrong. Please check the console.</p></div>`;
     }
 }
 
 /**
  * Continues app initialization after all biller data is ready.
- * This function initializes the search worker and the rest of the UI.
+ * UPDATED: Worker initialization is now wrapped in a try-catch block.
  */
 function onDataReady() {
-    console.log(`Biller data ready. Total records: ${BILLERS.length}. Initializing search worker...`);
+    Utils.debugLog(`Data ready. Initializing UI with ${BILLERS.length} records...`);
     
-    if (window.Worker) {
-        searchWorker = new Worker('./src/js/workers/search.worker.js');
-        
-        searchWorker.onmessage = (event) => {
-            const { type, payload } = event.data;
-            if (type === 'READY') {
-                console.log("Search worker is ready.");
-                dom.searchInput.disabled = false;
-                dom.searchInput.placeholder = "Search by name, TLA, or alias...";
-            } else if (type === 'RESULTS') {
-                state.currentSuggestions = payload;
-                UI.renderSuggestions(state.currentSuggestions, dom.searchInput.value.trim());
-            }
-        };
+    try {
+        if (window.Worker) {
+            Utils.debugLog('Initializing search worker...');
+            searchWorker = new Worker('./src/js/workers/search.worker.js');
+            
+            searchWorker.onmessage = (event) => {
+                try {
+                    const { type, payload } = event.data;
+                    if (type === 'READY') {
+                        Utils.debugLog('Worker is ready.');
+                        console.log("Search worker is ready.");
+                        dom.searchInput.disabled = false;
+                        dom.searchInput.placeholder = "Search by name, TLA, or alias...";
+                    } else if (type === 'RESULTS') {
+                        state.currentSuggestions = payload;
+                        UI.renderSuggestions(state.currentSuggestions, dom.searchInput.value.trim());
+                    }
+                } catch(error) {
+                    console.error("Error processing message from worker:", error);
+                    UI.showNotification("An error occurred during search.", "error");
+                }
+            };
 
-        searchWorker.postMessage({
-            type: 'INIT',
-            payload: {
-                billers: BILLERS,
-                fusePath: './src/js/lib/fuse.min.js'
-            }
-        });
-    } else {
-        console.error("Web Workers not supported. Search will not be available.");
-        dom.searchInput.placeholder = "Search unavailable in this browser.";
+            searchWorker.postMessage({
+                type: 'INIT',
+                payload: { billers: BILLERS, fusePath: './src/js/lib/fuse.min.js' }
+            });
+        } else {
+            throw new Error("Web Workers not supported in this browser.");
+        }
+    } catch (error) {
+        console.error("Failed to initialize search worker:", error);
+        Utils.debugLog(`ERROR: Worker init failed. ${error.message}`);
+        searchWorker = null;
+        dom.searchInput.disabled = false;
+        dom.searchInput.placeholder = "Search is unavailable.";
     }
 
     // Initialize remaining UI components and features
-    UI.Modal.open(dom.directoryModal); // Pre-warm the virtual list
+    UI.Modal.open(dom.directoryModal);
     UI.Modal.close(dom.directoryModal);
     Features.Favorites.init();
     Features.Analytics.init();
@@ -100,6 +105,7 @@ function onDataReady() {
     
     attachEventListeners();
     console.log("Ultimate Biller Hub initialized successfully.");
+    Utils.debugLog('Initialization complete.');
 }
 
 function attachEventListeners() {
@@ -142,15 +148,33 @@ function handleGlobalKeydown(e) {
     }
 }
 
-function loadBillerData(callback) {
+/**
+ * Dynamically loads all biller data shards.
+ * UPDATED: Now calls onDataReady internally and handles the case where no data is loaded.
+ */
+function loadBillerData() {
     const shards = [
         './src/js/data/billers-a-c.js',
         './src/js/data/billers-d-f.js',
     ];
     let loadedCount = 0;
 
+    const onAllShardsProcessed = () => {
+        Utils.debugLog('All data shards processed.');
+        if (BILLERS.length > 0) {
+            console.log("Saving billers to IndexedDB for next visit.");
+            DB.set('billers-cache', BILLERS);
+            onDataReady();
+        } else {
+            console.error("CRITICAL: Failed to load any biller data. Application cannot start.");
+            Utils.debugLog('ERROR: Failed to load biller data from files.');
+            UI.showNotification("Critical error: Could not load biller data.", "error");
+            dom.searchInput.placeholder = "Data loading failed.";
+        }
+    };
+
     if (shards.length === 0) {
-        callback();
+        onAllShardsProcessed();
         return;
     }
 
@@ -160,14 +184,14 @@ function loadBillerData(callback) {
         script.onload = () => {
             loadedCount++;
             if (loadedCount === shards.length) {
-                callback();
+                onAllShardsProcessed();
             }
         };
         script.onerror = () => {
             console.error(`Failed to load data shard: ${shardUrl}`);
             loadedCount++;
             if (loadedCount === shards.length) {
-                callback();
+                onAllShardsProcessed();
             }
         };
         document.head.appendChild(script);
