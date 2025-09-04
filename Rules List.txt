@@ -47,43 +47,76 @@ Approval is Mandatory: The AI must not generate any code until the user has expl
 
 
 
-Directory:
+//////////////////////////////////////////////
 
-ultimate-biller-hub/
-├── index.html              // Main application entry point
-├── sw.js                   // Service Worker for offline functionality
-└── src/
-    ├── assets/
-    │   └── svg/
-    │       ├── ach.svg
-    │       ├── amex.svg
-    │       └── ... (other payment logos)
-    ├── css/
-    │   ├── notes.css       // Styles specific to the notes component
-    │   ├── styles.css      // Core layout, component, and responsive styles
-    │   └── theme.css       // CSS variables for light/dark themes
-    ├── js/
-    │   ├── core/
-    │   │   ├── app-core.js   // Global state, DOM cache, core handlers
-    │   │   ├── data-helpers.js // Functions for sorting/filtering data
-    │   │   ├── db.js         // NEW: Module for IndexedDB logic
-    │   │   ├── utils.js      // General utility functions (debounce, etc.)
-    │   │   └── virtual-list.js // NEW: Reusable virtual rendering engine
-    │   ├── data/
-    │   │   ├── billers-a-c.js  // NEW: Sharded biller data
-    │   │   ├── billers-d-f.js  // NEW: ...and so on
-    │   │   ├── kb-articles.js
-    │   │   └── locations.js
-    │   ├── features/
-    │   │   ├── app-features.js   // Logic for Settings, Analytics, etc.
-    │   │   ├── location-feature.js
-    │   │   └── notes-feature.js
-    │   ├── main/
-    │   │   └── app-main.js   // Final script; initializes the application
-    │   ├── ui/
-    │   │   ├── ui-components.js // Main UI rendering object
-    │   │   └── ui-notes.js      // Renders the notes component UI
-    │   └── workers/
-    │       └── search.worker.js // NEW: Handles search in a background thread
-    └── live/
-        └── BGE.js            // Biller-specific detailed notes data
+
+
+
+
+
+
+Definitive Rules List for the Biller Hub Project
+
+1. Core Philosophy & Environment
+The Golden Rule: The project's primary version must be fully functional when index.html is opened directly in a browser from the local file system (using the file:/// protocol).
+No Server Dependencies: All features that require a web server must be disabled by design in the code. This includes:
+Service Workers: The code to register a service worker must not be present.
+Web Workers: The code to initialize a web worker must be removed in favor of a main-thread fallback.
+Advanced Caching: The application must not use IndexedDB or any other complex caching mechanism that is unreliable on the file:// protocol. Data should be loaded from source files on every visit.
+No Build Tools: The solution must not require a local web server (like "Live Server") or any command-line tools for building, compiling, or package management (npm, Vite, etc.).
+Client-Side Only: All code must run entirely in the browser. There is no backend.
+
+2. Project Structure & Modularity
+Mandatory Modularity: A highly modular, multi-file structure is mandatory for organization and scalability.
+JavaScript Architecture: The application logic must be split into the following single-responsibility files:
+Data Files:
+biller-data-all.js: A single, consolidated file for the main BILLERS array.
+/data/: Folder for other static data like locations.js, kb-articles.js.
+/live/: A directory for large, biller-specific note files (e.g., DNE.js, CEB.js).
+
+Core & Feature Logic:
+app-core.js: Contains the global state object and dom element cache.
+app-features.js: Contains the non-UI logic for features like Settings and Analytics.
+/features/: Folder for self-contained feature logic (e.g., location-feature.js, notes-feature.js).
+UI Rendering (Three-Part Structure):
+ui-core.js: Defines the global const UI = { ... }; object and contains the most critical rendering functions (displayBiller, renderSuggestions, etc.).
+ui-components.js: Contains logic for generic, reusable widgets (Modal, Drawer, Popover) and appends them to the UI object.
+ui-features.js: Contains logic for specific feature panels (Favorites, Settings, etc.) and appends them to the UI object.
+
+Initialization:
+app-main.js: The final script that orchestrates the application startup.
+CSS Architecture: Stylesheets must be split for maintainability:
+theme.css: Contains only CSS custom properties (variables) for all themes.
+styles.css: Contains structural and layout rules for core components.
+components.css, search.css, notes.css: Self-contained stylesheets for complex components.
+
+3. Code & Functionality
+Core Technologies: The project must only use HTML, CSS, and vanilla JavaScript (ES6+). No frameworks (React, Vue) or external component libraries are permitted.
+JavaScript Loading & Communication:
+No ES Modules: The keywords import/export and <script type="module"> are strictly forbidden to ensure file:/// compatibility.
+Global Scope: Communication between .js files is achieved via global constants and objects.
+The const UI = { ... }; declaration must only exist in ui-core.js. All other UI files must append to it (e.g., UI.Modal = { ... };).
+Critical Script Order: The <script> tags in index.html must be ordered meticulously in the following sequence:
+Libraries (fuse.min.js)
+All Data (biller-data-all.js, all /live/ note files, etc.)
+Core Logic (app-core.js, utils.js, etc.)
+UI Logic (in order: ui-core.js, ui-components.js, ui-features.js, ui-notes.js)
+Feature Logic (app-features.js, etc.)
+Main Initializer (app-main.js must be last).
+
+Defensive Programming:
+Wrap the main init() function in a try...catch block to prevent a single failure from crashing the entire application.
+At startup, verify that the global BILLERS array has been loaded correctly before proceeding.
+4. Data Structure & Flexibility
+Flexible Contact Information: All biller phone numbers and contacts must be stored in a contacts array within the biller's object in biller-data-all.js. Each object in the array must have type, label, value, and an optional note.
+Unique Biller Data: For unique, non-standard information, use an optional customFields array of { label, value } objects. The UI must be able to render these fields automatically.
+Complex Biller Notes: For billers with multiple divisions or complex rules (like DNE, CEB), the corresponding note file (e.g., DNE.js) must use the "Composite" data structure, containing alerts, generalInfo, and services properties.
+
+5. AI Collaboration & Workflow
+The Planning Rule: For any request involving multiple files or significant feature changes, the AI must first devise a detailed plan.
+Plan Requirements: The plan must include:
+A clear diagnosis of the problem or an outline of the new feature.
+A proposed solution, detailing the implementation strategy.
+A complete list of all new and modified files.
+Approval is Mandatory: The AI must not generate any code until the user has explicitly reviewed and approved the plan.
+
