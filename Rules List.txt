@@ -46,6 +46,13 @@ A complete list of all new and modified files.
 Approval is Mandatory: The AI must not generate any code until the user has explicitly reviewed and approved the plan.
 
 
+5. UI & Data Consistency:
+All biller-specific notes (e.g., BGE.js, PAC.js) must follow a standardized structure to ensure a consistent user experience.
+Common information must be organized into a set of standard, short-named tabs. The required standard tabs are: Alerts, Fees, Contact, System, and Channels.
+The title and key for these tabs must be consistent (e.g., alerts: { title: 'Alerts', ... }).
+Information unique to a biller that does not fit into a standard category should be placed in a new, custom-named tab.
+Tab color properties should be used consistently: danger for Alerts, primary for Fees, info for Contact and Channels, and secondary for System details.
+
 
 //////////////////////////////////////////////
 
