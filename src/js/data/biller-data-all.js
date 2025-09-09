@@ -268,7 +268,7 @@ const BILLERS = [
       { "type": "CSR", "label": "Business", "value": "800-329-6261" }
     ],
     "notes": "Serves Iowa, Illinois, South Dakota, and Nebraska.",
-    "areas": ["515", "319", "309", "605", "402"]
+    "areas": ["515", "319", "309", "605", "618", "402"]
   },
   {
     "id": 15,
@@ -581,5 +581,6 @@ const BILLERS = [
     "notes": "Electric utility company serving southwestern Pennsylvania.",
     "areas": []
   }
+
 
 */
