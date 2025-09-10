@@ -9,12 +9,14 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="format-detection" content="telephone=no">
     
-    <title>Ultimate Biller Hub</title>
+    <title>Biller Hub</title>
     
     <link rel="stylesheet" href="./src/css/theme.css">
     <link rel="stylesheet" href="./src/css/themes.css">
-    <link rel="stylesheet" href="./src/css/styles.css">
+    <link rel="stylesheet" href="./src/css/base.css">
+    <link rel="stylesheet" href="./src/css/header.css">
     <link rel="stylesheet" href="./src/css/search.css">
+    <link rel="stylesheet" href="./src/css/biller-card.css">
     <link rel="stylesheet" href="./src/css/components.css">
     <link rel="stylesheet" href="./src/css/notes.css">
     
@@ -23,8 +25,20 @@
 <body>
 
     <header class="app-header" role="banner">
-        <h1 class="app-title">Ultimate Biller Hub</h1>
-        <div class="header-actions">
+        <div class="header-left">
+            <div id="areaLookupContainer" class="lookup-container">
+                <button id="areaLookupBtn" class="icon-btn" aria-label="Open Area Lookup" data-tooltip="Area Lookup" data-shortcut="Alt+S">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                </button>
+                <input type="tel" id="areaLookupInput" class="menu-input" placeholder="Area Code..." aria-label="Area code input" autocomplete="off" maxlength="10">
+                <div id="areaLookupResultsBox" class="location-results-box" hidden></div>
+            </div>
+        </div>
+        <div class="header-center">
+             <h1 class="app-title">Biller Hub</h1>
+             <div id="clockWidget" class="clock-widget"></div>
+        </div>
+        <div class="header-right">
             <div class="popover-wrapper">
                 <button id="favoritesPopoverBtn" class="icon-btn" aria-label="Show Favorites" data-tooltip="Favorites" aria-haspopup="true" aria-expanded="false">
                     <i class="fa-solid fa-star"></i>
@@ -36,25 +50,8 @@
                     </div>
                 </div>
             </div>
-
-            <div class="popover-wrapper">
-                <button id="areaLookupPopoverBtn" class="icon-btn" aria-label="Open Area Lookup" data-tooltip="Area Lookup" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa-solid fa-map-location-dot"></i>
-                </button>
-                <div id="areaLookupPopover" class="popover" hidden>
-                    <div class="popover-header">Area Lookup</div>
-                    <div class="popover-content">
-                         <div id="areaLookupWrapper" class="lookup-wrapper">
-                            <input type="tel" id="areaLookupInput" class="menu-input" placeholder="Enter 3-digit area code..." aria-label="Area code input" autocomplete="off" maxlength="3">
-                            <div id="areaLookupResultsBox" class="location-results-box" hidden></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <button id="directoryBtn" class="icon-btn" aria-label="Open Biller Directory" data-tooltip="Biller Directory" data-shortcut="D"><i class="fa-solid fa-book-bookmark"></i></button>
             <button id="toolsBtn" class="icon-btn" aria-label="Open Workplace Tools" data-tooltip="Workplace Tools" data-shortcut="W"><i class="fa-solid fa-toolbox"></i></button>
-
             <div class="popover-wrapper">
                 <button id="themePopoverBtn" class="icon-btn" aria-label="Select Theme" data-tooltip="Themes" aria-haspopup="true" aria-expanded="false">
                     <i class="fa-solid fa-palette"></i>
@@ -62,12 +59,10 @@
                 <div id="themePopover" class="popover no-horizontal-scroll" hidden>
                     <div class="popover-header">Select Theme</div>
                     <div class="popover-content">
-                        <div id="themeSelector">
-                            </div>
+                        <div id="themeSelector"></div>
                     </div>
                 </div>
             </div>
-
             <div class="popover-wrapper">
                 <button id="settingsBtn" class="icon-btn" aria-label="Open Settings" aria-haspopup="true" aria-expanded="false" data-tooltip="Settings">
                     <i class="fa-solid fa-cog"></i>
@@ -141,44 +136,19 @@
             </aside>
         </div>
     </main>
-
-    <div id="directoryModal" class="modal-overlay" hidden>
-        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="directory-header">
-            <div class="modal-header">
-                <h2 id="directory-header">Biller Directory</h2>
-                <button id="directoryCloseBtn" class="icon-btn" aria-label="Close Directory"><i class="fa-solid fa-times"></i></button>
-            </div>
-            <div class="modal-body"></div>
-        </div>
-    </div>
-
-    <aside id="toolsPanel" class="drawer" role="complementary" aria-labelledby="tools-header"></aside>
-    <template id="toolsPanelTemplate">
-        <div class="drawer-header">
-            <h2 id="tools-header" class="drawer-title">Workplace Tools</h2>
-            <button id="toolsCloseBtn" class="icon-btn" aria-label="Close Tools Panel"><i class="fa-solid fa-times"></i></button>
-        </div>
-        <div class="drawer-content">
-            <section aria-labelledby="kb-heading">
-                <h3 id="kb-heading">KB Articles</h3>
-                <div class="search-wrapper">
-                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                    <input type="text" id="toolsKbSearch" class="menu-input" placeholder="Search articles...">
-                </div>
-                <ul id="kbList" class="kb-list"></ul>
-            </section>
-        </div>
-    </template>
     
     <div id="debugLog" class="debug-log" hidden></div>
 
     <script src="./src/js/lib/fuse.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.1/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
     
     <script src="./src/js/data/theme-data.js"></script>
     <script src="./src/js/data/kb-articles.js"></script>
     <script src="./src/js/data/locations.js"></script>
-    <script src="./src/js/data/biller-data-all.js"></script> 
+    <script src="./src/js/data/biller-data-na-east.js"></script>
+    <script src="./src/js/data/biller-data-na-central.js"></script>
+    <script src="./src/js/data/biller-data-na-west.js"></script>
     <script src="./src/live/AETX.js"></script>
     <script src="./src/live/AWK.js"></script>
     <script src="./src/live/BGE.js"></script>
@@ -193,22 +163,47 @@
     <script src="./src/live/PAC.js"></script>
     <script src="./src/live/PSE.js"></script>
     <script src="./src/live/TGXH.js"></script>
+    <script src="./src/live/GRIN.js"></script>
+    <script src="./src/live/HAWE.js"></script>
+    <script src="./src/live/HOIG.js"></script>
+    <script src="./src/live/JMIC.js"></script>
+    <script src="./src/live/KNOX.js"></script>
+    <script src="./src/live/NYCH.js"></script>
+    <script src="./src/live/OPPD.js"></script>
+    <script src="./src/live/OTPC.js"></script>
+    <script src="./src/live/PPL.js"></script>
+    <script src="./src/live/PSG.js"></script>
+    <script src="./src/live/SDG.js"></script>
+    <script src="./src/live/WMPT.js"></script>
+    <script src="./src/live/PHI.js"></script>
     
     <script src="./src/js/core/utils.js"></script>
     <script src="./src/js/core/db.js"></script>
     <script src="./src/js/core/data-helpers.js"></script>
     <script src="./src/js/core/anim.js"></script>
-    
     <script src="./src/js/core/virtual-list.js"></script>
     <script src="./src/js/core/app-core.js"></script>
+    
+    <script src="./src/js/features/clock.js"></script>
     <script src="./src/js/features/theme-feature.js"></script>
     <script src="./src/js/features/location-feature.js"></script>
     <script src="./src/js/features/notes-feature.js"></script>
     <script src="./src/js/features/app-features.js"></script>
     
-    <script src="./src/js/ui/ui-core.js"></script>
+    <script src="./src/js/ui/ui-main.js"></script>
+    <script src="./src/js/ui/ui-templates.js"></script>
+    <script src="./src/js/ui/ui-notifications.js"></script>
+    <script src="./src/js/ui/ui-settings.js"></script>
+    <script src="./src/js/ui/ui-analytics.js"></script>
+    <script src="./src/js/ui/ui-toasts.js"></script>
+    <script src="./src/js/ui/ui-biller-card.js"></script>
+    <script src="./src/js/ui/ui-search.js"></script>
+    <script src="./src/js/ui/ui-modal.js"></script>
+    <script src="./src/js/ui/ui-drawer.js"></script>
+    <script src="./src/js/ui/ui-favorites.js"></script>
+    <script src="./src/js/ui/ui-location.js"></script>
+    <script src="./src/js/ui/ui-tools.js"></script>
     <script src="./src/js/ui/ui-notes.js"></script>
-    <script src="./src/js/ui/ui-components-stable.js"></script>
     <script src="./src/js/ui/ui-popovers.js"></script>
     
     <script src="./src/js/main/app-main.js"></script>
