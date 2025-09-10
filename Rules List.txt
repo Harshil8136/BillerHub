@@ -100,4 +100,4 @@ Any function that consumes data from another file (e.g., a feature module consum
 Whenever a new .js or .css file is created, a corresponding <script> or <link> tag must be added to index.html in the correct, dependency-aware order to ensure it is loaded by the browser.
 
 10. AI Output Formatting (New)
-The AI must not embed citation markers (``) within any generated code block.
+The AI must never include citation markers (e.g., ``) in any generated file or code block. All generated content must be clean of these markers.
