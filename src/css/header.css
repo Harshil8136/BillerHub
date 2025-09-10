@@ -1,0 +1,136 @@
+/**
+ * HEADER STYLES
+ * ==================
+ * This file contains all styles related to the main application header,
+ * including the clock and the animated area lookup.
+ */
+
+.app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-md) var(--space-xl);
+    background-color: var(--card-bg);
+    border-bottom: 1px solid var(--card-border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--elev-2);
+    gap: var(--space-lg);
+}
+
+.header-left, .header-center, .header-right {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+.header-left { 
+    flex-basis: 300px; 
+    justify-content: flex-start; 
+}
+.header-center { 
+    flex-grow: 1; 
+    justify-content: center; 
+    gap: var(--space-lg); 
+}
+.header-right { 
+    flex-basis: 300px; 
+    justify-content: flex-end; 
+}
+
+.app-title { 
+    font-family: var(--font-family-headings); 
+    font-size: 1.25rem; 
+    margin: 0; 
+    font-weight: 700; 
+}
+
+/* --- Icon Buttons --- */
+.icon-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background-color var(--transition-fast) ease-out, color var(--transition-fast) ease-out;
+}
+.icon-btn:hover { 
+    background-color: var(--accent-secondary); 
+    color: var(--text-primary); 
+}
+.icon-btn:active { 
+    transform: scale(0.95); 
+}
+
+/* --- Clock Widget --- */
+.clock-widget {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-md);
+    background-color: var(--accent-secondary);
+    transition: background-color var(--motion-duration-lg) ease-out;
+    font-size: 0.9rem;
+}
+.clock-widget .time-details { 
+    display: flex; 
+    flex-direction: column; 
+    line-height: 1.3; 
+}
+.clock-widget .time { 
+    font-weight: 600; 
+    color: var(--text-primary); 
+}
+.clock-widget .date { 
+    font-size: 0.75rem; 
+    color: var(--text-secondary); 
+}
+.clock-widget.morning { 
+    background-color: color-mix(in srgb, var(--warning) 15%, var(--accent-secondary)); 
+}
+.clock-widget.evening { 
+    background-color: color-mix(in srgb, var(--accent-primary) 15%, var(--accent-secondary)); 
+}
+.clock-widget.night { 
+    background-color: color-mix(in srgb, var(--text-tertiary) 20%, var(--accent-secondary)); 
+}
+
+/* --- Area Lookup Animated Container --- */
+.lookup-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+#areaLookupInput {
+    /* Initial state for animation */
+    width: 0;
+    opacity: 0;
+    padding: 8px 0;
+    border-width: 0;
+    margin-left: var(--space-sm);
+    overflow: hidden;
+}
+
+/* --- Header Responsiveness --- */
+@media (max-width: 960px) {
+    .header-center .clock-widget { 
+        display: none; 
+    }
+}
+
+@media (max-width: 768px) {
+    .header-center { 
+        display: none; 
+    }
+    .header-left, .header-right { 
+        flex-basis: auto; 
+    }
+}
