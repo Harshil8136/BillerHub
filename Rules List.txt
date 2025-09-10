@@ -62,72 +62,42 @@ Information unique to a biller that does not fit into a standard category should
 
 
 
-
-
-
-
-Definitive Rules List for the Biller Hub Project
-
+Project Rules
 1. Core Philosophy & Environment
-The Golden Rule: The project's primary version must be fully functional when index.html is opened directly in a browser from the local file system (using the file:/// protocol).
-No Server Dependencies: All features that require a web server must be disabled by design in the code. This includes:
-Service Workers: The code to register a service worker must not be present.
-Web Workers: The code to initialize a web worker must be removed in favor of a main-thread fallback.
-Advanced Caching: The application must not use IndexedDB or any other complex caching mechanism that is unreliable on the file:// protocol. Data should be loaded from source files on every visit.
-No Build Tools: The solution must not require a local web server (like "Live Server") or any command-line tools for building, compiling, or package management (npm, Vite, etc.).
-Client-Side Only: All code must run entirely in the browser. There is no backend.
+The project must be fully functional when index.html is opened directly from the local file system (file:/// protocol). Server-dependent features must degrade gracefully.
+No local web server or command-line build tools (npm, Vite, etc.) are required.
+All code must be client-side only.
+The application must be robust, with fallbacks for failing external resources and graceful error handling.
 
 2. Project Structure & Modularity
-Mandatory Modularity: A highly modular, multi-file structure is mandatory for organization and scalability.
-JavaScript Architecture: The application logic must be split into the following single-responsibility files:
-Data Files:
-biller-data-all.js: A single, consolidated file for the main BILLERS array.
-/data/: Folder for other static data like locations.js, kb-articles.js.
-/live/: A directory for large, biller-specific note files (e.g., DNE.js, CEB.js).
-
-Core & Feature Logic:
-app-core.js: Contains the global state object and dom element cache.
-app-features.js: Contains the non-UI logic for features like Settings and Analytics.
-/features/: Folder for self-contained feature logic (e.g., location-feature.js, notes-feature.js).
-UI Rendering (Three-Part Structure):
-ui-core.js: Defines the global const UI = { ... }; object and contains the most critical rendering functions (displayBiller, renderSuggestions, etc.).
-ui-components.js: Contains logic for generic, reusable widgets (Modal, Drawer, Popover) and appends them to the UI object.
-ui-features.js: Contains logic for specific feature panels (Favorites, Settings, etc.) and appends them to the UI object.
-
-Initialization:
-app-main.js: The final script that orchestrates the application startup.
-CSS Architecture: Stylesheets must be split for maintainability:
-theme.css: Contains only CSS custom properties (variables) for all themes.
-styles.css: Contains structural and layout rules for core components.
-components.css, search.css, notes.css: Self-contained stylesheets for complex components.
+A highly modular, multi-file structure is mandatory.
+JavaScript: Logic must be split into single-responsibility files (Data, Core Logic, UI Rendering, Features, Initialization).
+CSS: Stylesheets must be split (theme.css for variables, and separate files like base.css, header.css, biller-card.css for structure and layout).
 
 3. Code & Functionality
-Core Technologies: The project must only use HTML, CSS, and vanilla JavaScript (ES6+). No frameworks (React, Vue) or external component libraries are permitted.
-JavaScript Loading & Communication:
-No ES Modules: The keywords import/export and <script type="module"> are strictly forbidden to ensure file:/// compatibility.
-Global Scope: Communication between .js files is achieved via global constants and objects.
-The const UI = { ... }; declaration must only exist in ui-core.js. All other UI files must append to it (e.g., UI.Modal = { ... };).
-Critical Script Order: The <script> tags in index.html must be ordered meticulously in the following sequence:
-Libraries (fuse.min.js)
-All Data (biller-data-all.js, all /live/ note files, etc.)
-Core Logic (app-core.js, utils.js, etc.)
-UI Logic (in order: ui-core.js, ui-components.js, ui-features.js, ui-notes.js)
-Feature Logic (app-features.js, etc.)
-Main Initializer (app-main.js must be last).
+Core Technologies: HTML, CSS, and vanilla JavaScript (ES6+) only. No frameworks or external component libraries.
+JavaScript Communication: No import/export. Communication is achieved via the global scope and a meticulous script loading order in index.html.
+Defensive Programming: Always check for null DOM elements before use and wrap critical initialization blocks in try...catch.
 
-Defensive Programming:
-Wrap the main init() function in a try...catch block to prevent a single failure from crashing the entire application.
-At startup, verify that the global BILLERS array has been loaded correctly before proceeding.
-4. Data Structure & Flexibility
-Flexible Contact Information: All biller phone numbers and contacts must be stored in a contacts array within the biller's object in biller-data-all.js. Each object in the array must have type, label, value, and an optional note.
-Unique Biller Data: For unique, non-standard information, use an optional customFields array of { label, value } objects. The UI must be able to render these fields automatically.
-Complex Biller Notes: For billers with multiple divisions or complex rules (like DNE, CEB), the corresponding note file (e.g., DNE.js) must use the "Composite" data structure, containing alerts, generalInfo, and services properties.
+4. AI Collaboration & Workflow
+For any significant feature change, the AI must first devise a detailed plan listing all new and modified files.
+The AI must not generate any code until the user has explicitly reviewed and approved the plan.
 
-5. AI Collaboration & Workflow
-The Planning Rule: For any request involving multiple files or significant feature changes, the AI must first devise a detailed plan.
-Plan Requirements: The plan must include:
-A clear diagnosis of the problem or an outline of the new feature.
-A proposed solution, detailing the implementation strategy.
-A complete list of all new and modified files.
-Approval is Mandatory: The AI must not generate any code until the user has explicitly reviewed and approved the plan.
+5. UI & Data Consistency
+All biller-specific notes (e.g., BGE.js, PAC.js) must follow a standardized structure to ensure a consistent user experience.
+The standard tabs must be defined in this exact order: alerts (danger), fees (primary), contact (info), channels (info), system (secondary).
 
+6. Refactoring Integrity (New)
+When a function or object is moved from a source file to a new destination file as part of refactoring, all other files that call or reference that code must be updated to use its new location.
+
+7. DOM Caching and Injection Order (New)
+Scripts must not attempt to cache DOM elements that are injected at runtime before the injection occurs. The correct operational sequence is: (1) Inject HTML templates into the DOM, (2) then cache the newly-added elements by ID, and (3) then attach event listeners to them.
+
+8. Data Contract Consistency (New)
+Any function that consumes data from another file (e.g., a feature module consuming a data module) must be written to match the exact data structure of the source file. If a data source's structure is changed, the consuming function must be updated in the same step.
+
+9. Asset Loading (New)
+Whenever a new .js or .css file is created, a corresponding <script> or <link> tag must be added to index.html in the correct, dependency-aware order to ensure it is loaded by the browser.
+
+10. AI Output Formatting (New)
+The AI must not embed citation markers (``) within any generated code block.
