@@ -1,0 +1,71 @@
+/**
+ * SIDEBAR STYLES
+ * ==================
+ * This file contains all styles related to the right-hand sidebar
+ * and its widgets.
+ */
+
+.content-secondary {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+}
+
+.favorites-section {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    box-shadow: var(--elev-2);
+}
+
+.favorites-section h3 {
+    font-family: var(--font-family-headings);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0 0 var(--space-lg) 0;
+}
+
+.favorites-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.favorite-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-sm);
+    cursor: pointer;
+    border-radius: var(--radius-md);
+    transition: background-color var(--transition-fast) ease-out;
+}
+.favorite-item:hover {
+    background-color: var(--accent-secondary);
+}
+
+.favorite-name {
+    flex-grow: 1;
+    font-weight: 500;
+}
+
+.icon-btn-remove {
+    font-size: 0.9rem;
+    color: var(--text-tertiary);
+}
+
+.empty-state {
+    font-size: 0.9rem;
+    color: var(--text-tertiary);
+    padding: var(--space-lg) 0;
+    text-align: center;
+}
+
+/* --- COMPACT DENSITY MODE (Sidebar) --- */
+body.density-compact .favorites-section { 
+    padding: var(--space-lg); 
+}
+body.density-compact .favorite-item { 
+    padding: 6px; 
+}
