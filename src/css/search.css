@@ -102,12 +102,10 @@
     background-color: color-mix(in srgb, var(--accent-primary) 20%, transparent);
     transform: translateX(4px);
 }
-.suggestion-item.is-live span:first-child {
-    color: var(--success);
-    font-weight: 500;
-}
+
 .suggestion-item > span:first-child {
-    display: block;
+    display: flex;
+    align-items: center;
     padding-right: calc(var(--space-2xl) * 2);
     white-space: nowrap;
     overflow: hidden;
@@ -120,6 +118,20 @@
     transform: translateY(-50%);
     color: var(--text-tertiary);
     font-size: 0.9rem;
+}
+
+/* New styles for the status dot */
+.suggestion-item .status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: var(--space-sm);
+    flex-shrink: 0; /* Prevents dot from shrinking */
+}
+
+.suggestion-item .status-dot.is-live {
+    background-color: var(--success);
 }
 
 /* --- Custom Scrollbar Styles --- */
