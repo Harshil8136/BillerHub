@@ -12,8 +12,9 @@ const firebaseConfig = {
   projectId: "biller-hub-analytics",
   storageBucket: "biller-hub-analytics.firebasestorage.app",
   messagingSenderId: "529544782831",
-  appId: "1:529544782831:web:7176aa745ba56b6dd80c1a",
+  appId: "AppID_BLANK",
   measurementId: "G-440WP7X6PF"
 
 };
+
 
