@@ -71,7 +71,7 @@ const BILLERS_EAST = [
     "adLink": "https://adg-ipn1.paymentus.net/CEMI?v2=true",
     "contacts": [
       { "type": "IVR", "label": "IVR", "value": "866-329-9593" },
-      { "type": "CSR", "label": "Customer Service", "value": "800-477-5050" }
+      { "type": "CSR", "label": "Customer Service", "value": "(888) 339-1944" }
     ],
     "timezone": "America/Detroit",
     "areas": ["231", "248", "269", "313", "517", "586", "616", "734", "810", "906", "947", "989"],
@@ -270,4 +270,5 @@ const BILLERS_EAST = [
       { "label": "Biller Website", "value": "https://nj.pseg.com/" }
     ]
   }
+
 ];
