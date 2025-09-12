@@ -23,7 +23,6 @@ UI.Templates = {
 
   /**
    * HTML structure for the Workplace Tools drawer panel.
-   * The content is wrapped in a <template> tag for deferred loading.
    */
   toolsPanel: `
     <aside id="toolsPanel" class="drawer" role="complementary" aria-labelledby="tools-header"></aside>
@@ -44,13 +43,28 @@ UI.Templates = {
       </div>
     </template>
   `,
+  
+  /**
+   * HTML structure for the new Theme Selector drawer panel.
+   */
+  themePanel: `
+    <aside id="themePanel" class="drawer" role="complementary" aria-labelledby="themes-header"></aside>
+    <template id="themePanelTemplate">
+        <div class="drawer-header">
+            <h2 id="themes-header" class="drawer-title">Select Theme</h2>
+            <button id="themesCloseBtn" class="icon-btn" aria-label="Close Themes Panel"><i class="fa-solid fa-times"></i></button>
+        </div>
+        <div id="themeSelector" class="drawer-content">
+            </div>
+    </template>
+  `,
 
   /**
    * Injects all templates into the document body.
-   * Should be called once on application startup.
    */
   inject: function() {
     document.body.insertAdjacentHTML('beforeend', this.directoryModal);
     document.body.insertAdjacentHTML('beforeend', this.toolsPanel);
+    document.body.insertAdjacentHTML('beforeend', this.themePanel);
   }
 };
