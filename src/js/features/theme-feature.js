@@ -8,17 +8,9 @@
 
 const ThemeFeature = {
   /**
-   * Initializes the theme system.
+   * Initializes the theme system by applying the saved theme on page load.
    */
   init() {
-    // 1. Build the theme selector UI from the manifest file.
-    this._buildSelectorUI();
-
-    // 2. Attach an event listener to the newly created UI.
-    // We attach it to the container for efficiency.
-    dom.themeSelector?.addEventListener('change', (e) => this._handleThemeChange(e));
-
-    // 3. Load the saved theme from localStorage, defaulting to 'light'.
     const savedTheme = Utils.storageGet('biller-theme', 'light');
     this.apply(savedTheme);
   },
@@ -55,9 +47,10 @@ const ThemeFeature = {
   },
 
   /**
-   * Dynamically builds the HTML for the theme selector and injects it into the DOM.
+   * Dynamically builds the HTML for the theme selector and injects it into the drawer.
+   * This is called by the UI.Themes module on first open.
    */
-  _buildSelectorUI() {
+  buildSelector() {
     if (!dom.themeSelector || typeof THEMES === 'undefined') return;
 
     // Group themes by their 'group' property.
@@ -73,7 +66,7 @@ const ThemeFeature = {
         const themesInGroup = groupedThemes[groupName];
         
         const radioButtonsHtml = themesInGroup.map(theme => `
-            <label>
+            <label class="radio-label">
                 <input type="radio" name="theme" value="${theme.id}">
                 <span>${theme.name}</span>
             </label>
@@ -82,7 +75,7 @@ const ThemeFeature = {
         finalHtml += `
             <fieldset class="theme-selector-group">
                 <legend>${groupName}</legend>
-                <div class="radio-group" style="grid-template-columns: repeat(2, 1fr);">
+                <div class="radio-group">
                     ${radioButtonsHtml}
                 </div>
             </fieldset>
@@ -90,6 +83,13 @@ const ThemeFeature = {
     }
     
     dom.themeSelector.innerHTML = finalHtml;
+
+    // Attach the event listener to the container for efficiency.
+    dom.themeSelector.addEventListener('change', (e) => this._handleThemeChange(e));
+
+    // Sync the initial state of the radio buttons.
+    const currentTheme = Utils.storageGet('biller-theme', 'light');
+    this._syncSelectorState(currentTheme);
   },
 
   /**
