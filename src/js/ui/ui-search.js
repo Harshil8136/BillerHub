@@ -35,7 +35,8 @@ UI.Search = {
     const queryRegex = new RegExp(`(${query.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')})`, 'ig');
     const renderItem = (biller, index) => {
       const highlightedName = biller.name.replace(queryRegex, `<strong>$1</strong>`);
-      return `<li class="suggestion-item ${biller.live ? 'is-live' : ''}" id="suggestion-${index}" role="option" data-id="${biller.id}"><span>${highlightedName}</span><span class="suggestion-tla">${biller.tla}</span></li>`;
+      const statusIndicator = biller.live ? '<span class="status-dot is-live"></span>' : '';
+      return `<li class="suggestion-item" id="suggestion-${index}" role="option" data-id="${biller.id}"><span>${statusIndicator}${highlightedName}</span><span class="suggestion-tla">${biller.tla}</span></li>`;
     };
 
     dom.suggestionsList.innerHTML = suggestions.map((b, i) => renderItem(b, i)).join('');
