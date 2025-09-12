@@ -8,7 +8,7 @@
   // Your web app's Firebase configuration
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
   const firebaseConfig = {
-    apiKey: "AIzaSyDnCDVc-PUK7s72jyXunt50kKZf2eIBfy8",
+    apiKey: "AIzaSyDnCDVc-",
     authDomain: "biller-hub-analytics.firebaseapp.com",
     projectId: "biller-hub-analytics",
     storageBucket: "biller-hub-analytics.firebasestorage.app",
@@ -20,4 +20,5 @@
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
+
 </script>
