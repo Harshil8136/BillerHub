@@ -463,7 +463,7 @@ const LOCATION_BILLERS = {
   'Georgia, US': ['AWK'],
   'Hawaii, US': ['HAWE'],
   'Idaho, US': ['PAC'],
-  'Illinois, US': ['AWK', 'COMD', 'MEC', 'NSRC'],
+  'Illinois, US': ['COMD', 'NSRC', 'MEC', 'AWK'],
   'Indiana, US': ['AWK', 'NSRC'],
   'Iowa, US': ['AWK', 'MEC'],
   'Kansas, US': [],
@@ -513,4 +513,5 @@ const LOCATION_BILLERS = {
   'Quebec, CA': [],
   'Saskatchewan, CA': [],
   'Yukon, Northwest Territories and Nunavut, CA': []
+
 };
