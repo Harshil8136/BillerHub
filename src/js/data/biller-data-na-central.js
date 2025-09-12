@@ -52,6 +52,7 @@ const BILLERS_CENTRAL = [
     "adLink": "https://adg-ipn1.paymentus.net/dcn3?v2=true&lang=en",
     "contacts": [
       { "type": "CSR", "label": "Tax Office", "value": "214-653-7811" }
+      { "type": "CSR", "label": "Customer Service", "value": "214-653-7811"}
     ],
     "timezone": "America/Chicago",
     "areas": ["214", "469", "972", "945"],
@@ -68,6 +69,8 @@ const BILLERS_CENTRAL = [
     "adLink": "https://adg-ipn1.paymentus.net/dcto?v2=true&lang=en",
     "contacts": [
       { "type": "CSR", "label": "Treasury Office", "value": "214-653-7321" }
+      { "type": "CSR", "label": "Customer Service", "value": "214-653-7811"}
+      
     ],
     "timezone": "America/Chicago",
     "notes": "Handles Treasury payments. We DO NOT take live payments.",
@@ -85,6 +88,7 @@ const BILLERS_CENTRAL = [
     "adLink": "https://adg-ipn1.paymentus.net/galv?v2=true&lang=en",
     "contacts": [
       { "type": "IVR", "label": "IVR", "value": "866-288-6894" }
+      { "type": "CSR", "label": "Customer Service", "value": "877-766-2284"}
     ],
     "timezone": "America/Chicago",
     "areas": ["409", "281"],
@@ -101,6 +105,8 @@ const BILLERS_CENTRAL = [
     "adLink": "https://adg-ipn1.paymentus.net/mec?v2=true&lang=en",
     "contacts": [
       { "type": "IVR", "label": "IVR", "value": "877-253-0147" }
+      { "type": "CSR", "label": "Customer Service", "value": "888-427-5632"}
+       { "type": "CSR", "label": "Business", "value": "888-427-5632"}
     ],
     "timezone": "America/Chicago",
     "notes": "Serves Iowa, Illinois, South Dakota, and Nebraska.",
@@ -118,6 +124,7 @@ const BILLERS_CENTRAL = [
     "adLink": "https://adg-ipn1.paymentus.net/nmac?v2=true&lang=en",
     "contacts": [
       { "type": "IVR", "label": "IVR", "value": "833-648-0173" }
+      { "type": "CSR", "label": "Customer Service", "value": "800-456-6622"}
     ],
     "timezone": "America/Chicago",
     "notes": "National provider (HQ in TN). Handles RETAIL payments.",
@@ -135,6 +142,7 @@ const BILLERS_CENTRAL = [
     "adLink": "https://adg-ipn1.paymentus.net/nsan?v2=true&lang=en",
     "contacts": [
       { "type": "IVR", "label": "IVR", "value": "833-648-0173" }
+      { "type": "CSR", "label": "Customer Service", "value": "800-456-6622"}
     ],
     "timezone": "America/Chicago",
     "notes": "National provider (HQ in TN). Handles LEASE payments.",
@@ -169,6 +177,7 @@ const BILLERS_CENTRAL = [
     "adLink": "https://adg-ipn1.paymentus.net/tgxh?v2=true&lang=en",
     "contacts": [
       { "type": "IVR", "label": "IVR", "value": "888-826-5029" }
+      { "type": "CSR", "label": "Customer Service", "value": "817-884-1111"}
     ],
     "timezone": "America/Chicago",
     "areas": ["817", "682"],
@@ -322,4 +331,5 @@ const BILLERS_CENTRAL = [
     { "label": "Biller Website", "value": "https://www.enbridgegas.com/north-carolina" }
   ]
 }
+
 ];
