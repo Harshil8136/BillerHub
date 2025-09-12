@@ -74,6 +74,8 @@ function reCacheInjectedDOMElements() {
     dom.directoryCloseBtn = document.getElementById('directoryCloseBtn');
     dom.toolsPanel = document.getElementById('toolsPanel');
     dom.toolsPanelTemplate = document.getElementById('toolsPanelTemplate');
+    dom.themePanel = document.getElementById('themePanel');
+    dom.themePanelTemplate = document.getElementById('themePanelTemplate');
 }
 
 function initializeSearchService() {
@@ -108,10 +110,10 @@ function attachEventListeners() {
     dom.areaLookupInput?.addEventListener('keydown', handleAreaLookupKeydown);
 
     // Settings Menu actions
-    document.getElementById('settingsMenuFavorites')?.addEventListener('click', () => UI.Popovers.toggle(dom.favoritesPopover, document.getElementById('settingsMenuFavorites')));
+    document.getElementById('settingsMenuFavorites')?.addEventListener('click', () => { UI.Favorites.renderInSettings(Features.Favorites.list); UI.Popovers.toggle(document.getElementById('favoritesPopover'), document.getElementById('settingsMenuFavorites')); });
     document.getElementById('settingsMenuDirectory')?.addEventListener('click', () => { UI.Modal.open(dom.directoryModal); UI.Popovers.closeActive(); });
     document.getElementById('settingsMenuTools')?.addEventListener('click', () => { UI.Tools.toggle(); UI.Popovers.closeActive(); });
-    document.getElementById('settingsMenuThemes')?.addEventListener('click', () => UI.Popovers.toggle(dom.themePopover, document.getElementById('settingsMenuThemes')));
+    document.getElementById('settingsMenuThemes')?.addEventListener('click', () => { UI.Themes.toggle(); UI.Popovers.closeActive(); });
 
     // Modal & Drawer Close Buttons
     dom.directoryCloseBtn?.addEventListener('click', () => UI.Modal.close(dom.directoryModal));
