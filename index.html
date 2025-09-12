@@ -11,6 +11,9 @@
     
     <title>Biller Hub</title>
     
+    <link rel="icon" href="assets/favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+    
     <link rel="stylesheet" href="./src/css/theme.css">
     <link rel="stylesheet" href="./src/css/themes.css">
     <link rel="stylesheet" href="./src/css/base.css">
@@ -25,6 +28,7 @@
     <link rel="stylesheet" href="./src/css/forms.css">
     <link rel="stylesheet" href="./src/css/sidebar.css">
     <link rel="stylesheet" href="./src/css/toast.css">
+    <link rel="stylesheet" href="./src/css/title-effects.css">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
@@ -42,34 +46,9 @@
         </div>
         <div class="header-center">
              <h1 class="app-title">Biller Hub</h1>
-             <span id="headerGreeting" class="header-greeting" hidden></span>
-             <div id="clockWidget" class="clock-widget"></div>
         </div>
         <div class="header-right">
-            <div class="popover-wrapper">
-                <button id="favoritesPopoverBtn" class="icon-btn" aria-label="Show Favorites" data-tooltip="Favorites" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa-solid fa-star"></i>
-                </button>
-                <div id="favoritesPopover" class="popover" hidden>
-                    <div class="popover-header">Your Favorites</div>
-                    <div class="popover-content no-horizontal-scroll">
-                        <ul id="favoritesList" role="list"></ul>
-                    </div>
-                </div>
-            </div>
-            <button id="directoryBtn" class="icon-btn" aria-label="Open Biller Directory" data-tooltip="Biller Directory" data-shortcut="D"><i class="fa-solid fa-book-bookmark"></i></button>
-            <button id="toolsBtn" class="icon-btn" aria-label="Open Workplace Tools" data-tooltip="Workplace Tools" data-shortcut="W"><i class="fa-solid fa-toolbox"></i></button>
-            <div class="popover-wrapper">
-                <button id="themePopoverBtn" class="icon-btn" aria-label="Select Theme" data-tooltip="Themes" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa-solid fa-palette"></i>
-                </button>
-                <div id="themePopover" class="popover no-horizontal-scroll" hidden>
-                    <div class="popover-header">Select Theme</div>
-                    <div class="popover-content">
-                        <div id="themeSelector"></div>
-                    </div>
-                </div>
-            </div>
+            <div id="clockWidget" class="clock-widget"></div>
             <div class="popover-wrapper">
                 <button id="settingsBtn" class="icon-btn" aria-label="Open Settings" aria-haspopup="true" aria-expanded="false" data-tooltip="Settings">
                     <i class="fa-solid fa-cog"></i>
@@ -80,10 +59,30 @@
                         <button id="editNameBtn" class="icon-btn edit-btn"><i class="fa-solid fa-pencil"></i></button>
                     </div>
                     <div class="popover-content">
+                        <div class="settings-menu">
+                            <button id="settingsMenuFavorites" class="menu-item">
+                                <i class="fa-solid fa-star fa-fw"></i>
+                                <span>Favorites</span>
+                            </button>
+                            <button id="settingsMenuDirectory" class="menu-item">
+                                <i class="fa-solid fa-book-bookmark fa-fw"></i>
+                                <span>Biller Directory</span>
+                                <kbd>D</kbd>
+                            </button>
+                            <button id="settingsMenuTools" class="menu-item">
+                                <i class="fa-solid fa-toolbox fa-fw"></i>
+                                <span>Workplace Tools</span>
+                                <kbd>W</kbd>
+                            </button>
+                            <button id="settingsMenuThemes" class="menu-item">
+                                <i class="fa-solid fa-palette fa-fw"></i>
+                                <span>Themes</span>
+                            </button>
+                        </div>
+                        <hr style="border-color: var(--card-border); margin: 0.5rem 0;">
                         <div id="displayNameWrapper" class="settings-section" hidden>
                             <input type="text" id="displayNameInput" class="menu-input" placeholder="Enter your name...">
                         </div>
-                        <hr style="border-color: var(--card-border); margin: 0.5rem 0;">
                         <div class="font-control">
                             <span class="switch-label">Biller Font Size</span>
                             <div>
@@ -103,16 +102,16 @@
                             <div class="switch-track"><div class="switch-handle"></div></div>
                         </label>
                         <label class="toggle-switch">
-                            <input type="checkbox" id="toggleHeaderGreeting">
-                            <span class="switch-label">Show Greeting in Header</span>
+                            <input type="checkbox" id="toggleTitleAnimation">
+                            <span class="switch-label">Animate Title</span>
                             <div class="switch-track"><div class="switch-handle"></div></div>
                         </label>
+                        <hr style="border-color: var(--card-border); margin: 0.5rem 0;">
                         <label class="toggle-switch">
                             <input type="checkbox" id="toggleTelemetry">
                             <span class="switch-label">Enable Telemetry</span>
                             <div class="switch-track"><div class="switch-handle"></div></div>
                         </label>
-                        <hr style="border-color: var(--card-border); margin: 0.5rem 0;">
                         <label class="toggle-switch">
                             <input type="checkbox" id="toggleDebugLog">
                             <span class="switch-label">Show Debug Log</span>
@@ -148,6 +147,11 @@
             </div>
             <aside class="content-secondary" aria-labelledby="sidebar-heading">
                 <h2 id="sidebar-heading" class="sr-only">Sidebar content</h2>
+                <section class="favorites-section">
+                    <h3><i class="fa-solid fa-star"></i> Your Favorites</h3>
+                    <ul id="sidebarFavoritesList" class="favorites-list">
+                        </ul>
+                </section>
             </aside>
         </div>
     </main>
@@ -216,7 +220,6 @@
     <script src="./src/js/ui/ui-settings.js"></script>
     <script src="./src/js/ui/ui-analytics.js"></script>
     <script src="./src/js/ui/ui-toasts.js"></script>
-    <script src="./src/js/ui/ui-header.js"></script>
     <script src="./src/js/ui/ui-biller-card.js"></script>
     <script src="./src/js/ui/ui-search.js"></script>
     <script src="./src/js/ui/ui-modal.js"></script>
