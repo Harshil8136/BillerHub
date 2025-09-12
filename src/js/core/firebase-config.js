@@ -7,7 +7,7 @@
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDnCDVc-",
+  apiKey: "TEST_KEY_ID_BLANK",
   authDomain: "biller-hub-analytics.firebaseapp.com",
   projectId: "biller-hub-analytics",
   storageBucket: "biller-hub-analytics.firebasestorage.app",
@@ -16,3 +16,4 @@ const firebaseConfig = {
   measurementId: "G-440WP7X6PF"
 
 };
+
