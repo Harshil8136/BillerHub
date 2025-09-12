@@ -495,7 +495,7 @@ const LOCATION_BILLERS = {
   'Tennessee, US': ['AWK', 'KNOX'],
   'Territories, US': [],
   'Texas, US': ['AETX', 'DCN3', 'DCTO', 'GALV', 'TGXH'],
-  'Toll - Free, US': ['JMIC', 'NMAC', 'NSAN', 'WMPT'],
+  'Toll - Free, US': ['JMIC', 'NMAC', 'HOIG', 'NSAN', 'WMPT'],
   'Utah, US': ['PAC'],
   'Vermont, US': [],
   'Virginia, US': ['AWK', 'DNE', 'NSRC'],
@@ -515,3 +515,4 @@ const LOCATION_BILLERS = {
   'Yukon, Northwest Territories and Nunavut, CA': []
 
 };
+
