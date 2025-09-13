@@ -1,0 +1,27 @@
+Here are the key technical limitations and best practices to follow.
+
+## Core Principle: The file:/// Protocol
+The fundamental rule is that your browser treats local files as documents, not as web pages served from an origin. This distinction is a security feature to prevent a malicious HTML file you download from accessing other files on your computer. This principle is the root cause of most of the following restrictions.
+## Data Loading & APIs
+fetch() and AJAX are Blocked You cannot use fetch() or XMLHttpRequest (AJAX) to load local files like a data.json. Doing so will result in a CORS (Cross-Origin Resource Policy) error. The browser considers each local file to have its own unique, private origin, and for security, it blocks one local file from requesting another.
+The <script> Tag Solution
+The only reliable way to load data from other files is to format your data within a JavaScript file and load it using a <script> tag. The script simply defines the data as a global variable.
+Example: Instead of a data.json, you create a data.js file with the content: const myData = [{...}]
+
+Web Storage and IndexedDB Work You can still use browser storage APIs like localStorage, sessionStorage, and IndexedDB. These are your primary tools for saving user settings, application state, or any data that needs to persist between sessions.
+## JavaScript Modularity
+ES Modules (import/export) are Not Supported
+The modern JavaScript import and export syntax is also blocked by the browser's CORS policy when running on the file:/// protocol. You cannot use <script type="module"> or the import keyword in your JavaScript files.
+
+The Global Scope Solution
+To share code and data between files, you must use the "classic" script-loading method:
+Global Objects: Define global objects (e.g., const UI = {};, const Features = {};) in an early-loading script.
+Meticulous Script Order: Subsequent scripts attach their own objects to these globals (e.g., UI.Modal = {};). The order of your <script> tags in index.html is critical to ensure that objects are defined before they are used.
+Initialization Script: The final script in your index.html should be a main script (e.g., app-main.js) that kicks off the application's logic.
+
+## Advanced Web Features
+Service Workers are Disabled
+Registering a Service Worker for offline caching or Progressive Web App (PWA) features is not possible. Service Workers have a strict security requirement: they can only be registered on pages served over HTTPS. They will fail to initialize on the file:/// protocol.
+
+Routing is Limited
+Modern single-page application "routers" that use the History API (pushState, replaceState) to create clean URLs (e.g., .../index.html/about) will not work correctly. While you might be able to change the URL in the address bar, attempting to refresh or bookmark that URL will result in a File Not Found error. The only viable routing method is hash-based routing, which uses the # symbol (e.g., .../index.html#about).
