@@ -1,8 +1,8 @@
 /**
  * NOTES: HWFL - City of Hollywood, FL
  * =============================================================================
- * Stateless notes with standardized tabs in this order:
- * All, Alerts, Fees, Contact, Channels, System, Account.
+ * Stateless notes with tabs: All, Alerts, Fees, Contact, Channels, System, Account.
+ * Uses payment-logo classes defined in notes.css (visa, mastercard, discover, amex, ach, paypal, paypal-credit, amazon-pay, venmo).
  */
 
 const HWFL_NOTES = {
@@ -18,9 +18,17 @@ const HWFL_NOTES = {
       </ul>
 
       <h4><i class="fa-solid fa-id-card"></i> Account Format</h4>
-      <p><strong>Format:</strong> 6 digits – 6 digits shown as <code>xxxxxx-xxxxxx</code></p>
+      <p><strong>Format:</strong> 6 digits – 6 digits (<code>xxxxxx-xxxxxx</code>)</p>
 
       <h4><i class="fa-solid fa-credit-card"></i> Payment Summary</h4>
+      <div class="mop-container" style="margin: 6px 0 10px;">
+        <div class="mop-item"><span class="payment-logo visa"></span><span class="mop-label">Visa</span></div>
+        <div class="mop-item"><span class="payment-logo mastercard"></span><span class="mop-label">Mastercard</span></div>
+        <div class="mop-item"><span class="payment-logo amex"></span><span class="mop-label">AMEX</span></div>
+        <div class="mop-item"><span class="payment-logo ach"></span><span class="mop-label">Bank (ACH)</span></div>
+        <div class="mop-item"><span class="payment-logo paypal"></span><span class="mop-label">PayPal</span></div>
+        <div class="mop-item"><span class="payment-logo amazon-pay"></span><span class="mop-label">Amazon Pay</span></div>
+      </div>
       <ul>
         <li><strong>Web/Mobile/Scheduled:</strong> Debit (Visa, Mastercard), Credit (Visa, Mastercard, AMEX), Bank (Checking, Savings), Advanced (PayPal, Walmart Pay) — <strong>fees absorbed</strong></li>
         <li><strong>AD/IVR:</strong> Debit (Visa, Mastercard), Credit (Visa, Mastercard, AMEX), Bank (Checking, Savings)</li>
@@ -38,8 +46,8 @@ const HWFL_NOTES = {
     color: 'danger',
     content: `
       <ul>
-        <li><strong>Emergency Routing:</strong> Use <span class="copyable-phone">954-967-4357</span> for emergencies on Fridays, weekends, and holidays.</li>
-        <li><strong>CSR Hours:</strong> General customer service is available Mon–Thu 7:00 AM–6:00 PM via <span class="copyable-phone">954-921-3938</span> (Option 5).</li>
+        <li><strong>Emergency Routing:</strong> Use <span class="copyable-phone">954-967-4357</span> on Fridays, weekends, and holidays.</li>
+        <li><strong>CSR Hours:</strong> Customer Service is available Mon–Thu 7:00 AM–6:00 PM via <span class="copyable-phone">954-921-3938</span> (Option 5).</li>
       </ul>
     `
   },
@@ -48,23 +56,43 @@ const HWFL_NOTES = {
     title: 'Fees',
     color: 'success',
     content: `
-      <div class="table-container">
+      <h4>Methods by Channel</h4>
+      <div class="table-container" style="margin-bottom:10px;">
         <table>
           <thead><tr><th>Channel</th><th>Methods</th><th>Fee</th></tr></thead>
           <tbody>
             <tr>
               <td>Web, Mobile, Scheduled</td>
-              <td>Debit (Visa, Mastercard); Credit (Visa, Mastercard, AMEX); Bank (Checking, Savings); Advanced (PayPal, Walmart Pay)</td>
+              <td>
+                <div class="mop-inline">
+                  <span class="payment-logo visa" title="Visa"></span>
+                  <span class="payment-logo mastercard" title="Mastercard"></span>
+                  <span class="payment-logo amex" title="AMEX"></span>
+                  <span class="payment-logo ach" title="Bank (ACH)"></span>
+                  <span class="payment-logo paypal" title="PayPal"></span>
+                  <span class="payment-logo amazon-pay" title="Amazon Pay"></span>
+                </div>
+                <div class="mop-text">Debit (Visa, Mastercard); Credit (Visa, Mastercard, AMEX); Bank (Checking, Savings); Advanced (PayPal, Walmart Pay)</div>
+              </td>
               <td><strong>Absorbed</strong></td>
             </tr>
             <tr>
               <td>AD, IVR</td>
-              <td>Debit (Visa, Mastercard); Credit (Visa, Mastercard, AMEX); Bank (Checking, Savings)</td>
+              <td>
+                <div class="mop-inline">
+                  <span class="payment-logo visa" title="Visa"></span>
+                  <span class="payment-logo mastercard" title="Mastercard"></span>
+                  <span class="payment-logo amex" title="AMEX"></span>
+                  <span class="payment-logo ach" title="Bank (ACH)"></span>
+                </div>
+                <div class="mop-text">Debit (Visa, Mastercard); Credit (Visa, Mastercard, AMEX); Bank (Checking, Savings)</div>
+              </td>
               <td>Not specified</td>
             </tr>
           </tbody>
         </table>
       </div>
+      <p class="hint">Logos indicate accepted methods; availability may vary by channel.</p>
     `
   },
 
@@ -86,9 +114,21 @@ const HWFL_NOTES = {
     color: 'info',
     content: `
       <ul>
-        <li><strong>Supported Channels:</strong> Web, Mobile, Scheduled, Agent Dashboard (AD), IVR</li>
-        <li><strong>Methods (Web/Mobile/Scheduled):</strong> Debit (Visa, Mastercard); Credit (Visa, Mastercard, AMEX); Bank (Checking, Savings); Advanced (PayPal, Walmart Pay)</li>
-        <li><strong>Methods (AD/IVR):</strong> Debit (Visa, Mastercard); Credit (Visa, Mastercard, AMEX); Bank (Checking, Savings)</li>
+        <li><strong>Supported:</strong> Web, Mobile, Scheduled, Agent Dashboard (AD), IVR</li>
+        <li><strong>Web/Mobile/Scheduled Methods:</strong>
+          <span class="payment-logo visa" title="Visa"></span>
+          <span class="payment-logo mastercard" title="Mastercard"></span>
+          <span class="payment-logo amex" title="AMEX"></span>
+          <span class="payment-logo ach" title="Bank (ACH)"></span>
+          <span class="payment-logo paypal" title="PayPal"></span>
+          <span class="payment-logo amazon-pay" title="Amazon Pay"></span>
+        </li>
+        <li><strong>AD/IVR Methods:</strong>
+          <span class="payment-logo visa" title="Visa"></span>
+          <span class="payment-logo mastercard" title="Mastercard"></span>
+          <span class="payment-logo amex" title="AMEX"></span>
+          <span class="payment-logo ach" title="Bank (ACH)"></span>
+        </li>
       </ul>
     `
   },
@@ -111,7 +151,7 @@ const HWFL_NOTES = {
     content: `
       <ul>
         <li><strong>Format:</strong> 6 digits – 6 digits (e.g., <code>123456-789123</code>)</li>
-        <li><strong>Guidance:</strong> Enter the account number exactly as shown including the hyphen.</li>
+        <li><strong>Tip:</strong> Enter the account number exactly as shown including the hyphen.</li>
       </ul>
     `
   }
