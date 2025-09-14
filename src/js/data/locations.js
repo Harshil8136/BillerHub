@@ -459,7 +459,7 @@ const LOCATION_BILLERS = {
   'Connecticut, US': [],
   'Delaware, US': ['PHI'],
   'District of Columbia, US': ['PHI'],
-  'Florida, US': [],
+  'Florida, US': [HWFL, NMAC],
   'Georgia, US': ['AWK'],
   'Hawaii, US': ['HAWE'],
   'Idaho, US': ['PAC'],
@@ -515,4 +515,5 @@ const LOCATION_BILLERS = {
   'Yukon, Northwest Territories and Nunavut, CA': []
 
 };
+
 
