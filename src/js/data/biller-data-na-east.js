@@ -269,6 +269,27 @@ const BILLERS_EAST = [
     "customFields": [
       { "label": "Biller Website", "value": "https://nj.pseg.com/" }
     ]
-  }
-
+  },
+ {
+  "id": 43,
+  "live": true,
+  "name": "City of Hollywood, FL",
+  "tla": "HWFL",
+  "aliases": ["Hollywood FL Utilities", "Hollywood Water"],
+  "paymentTypes": ["Utilities", "Water"],
+  "kbLink": null,
+  "adLink": null,
+  "contacts": [
+    { "type": "IVR", "label": "IVR", "value": "855-748-4344" },
+    { "type": "CSR", "label": "Customer Service (Mon–Thu 7am–6pm)", "value": "954-921-3938" },
+    { "type": "CSR", "label": "Emergency", "value": "954-967-4357" }
+  ],
+  "timezone": "America/New_York",
+  "notes": "Account format xxxxxx-xxxxxx (6 digits-6 digits). Web/Mobile/Scheduled payments absorbed fees; AD/IVR support card and bank methods. CIS: Munis.",
+  "areas": ["954","754"],
+  "customFields": [
+    { "label": "Biller Website", "value": "http://www.hollywoodfl.org/" }
+  ]
+},
 ];
+
