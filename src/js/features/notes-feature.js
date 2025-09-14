@@ -33,6 +33,7 @@ const NotesFeature = {
       'HAWE': typeof HAWE_NOTES !== 'undefined' ? HAWE_NOTES : null,
       'HOIG': typeof HOIG_NOTES !== 'undefined' ? HOIG_NOTES : null,
       'HYD1': typeof HYD1_NOTES !== 'undefined' ? HYD1_NOTES : null,
+      'HWFL': typeof HWFL_NOTES !== 'undefined' ? HWFL_NOTES : null,
       'HYDO': typeof HYD1_NOTES !== 'undefined' ? HYD1_NOTES : null,
       'JMIC': typeof JMIC_NOTES !== 'undefined' ? JMIC_NOTES : null,
       'JMCP': typeof JMIC_NOTES !== 'undefined' ? JMIC_NOTES : null,
@@ -66,4 +67,5 @@ const NotesFeature = {
     // Call the UI to update the button states and render the new content.
     UI_Notes.updateContent(this.currentBillerNotes, this.activeCategory);
   }
+
 };
