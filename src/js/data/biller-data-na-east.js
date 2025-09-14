@@ -290,6 +290,7 @@ const BILLERS_EAST = [
   "customFields": [
     { "label": "Biller Website", "value": "http://www.hollywoodfl.org/" }
   ]
-},
+}
 ];
+
 
