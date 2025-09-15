@@ -494,7 +494,7 @@ const LOCATION_BILLERS = {
   'South Dakota, US': ['MEC', 'OTPC'],
   'Tennessee, US': ['AWK', 'KNOX'],
   'Territories, US': [],
-  'Texas, US': ['AETX', 'DCN3', 'DCTO', 'GALV', 'TGXH'],
+  'Texas, US': ['AETX', 'DUQL', 'TGXH', 'GALV', 'DCN3'],
   'Toll - Free, US': ['JMIC', 'NMAC', 'HOIG', 'NSAN', 'WMPT'],
   'Utah, US': ['PAC'],
   'Vermont, US': [],
