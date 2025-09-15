@@ -79,7 +79,7 @@ const BILLERS_EAST = [
   },
   {
   "id": 22,
-  "live": true,
+  "live": false,
   "name": "Dominion Energy",
   "tla": "DNE",
   "aliases": ["Dominion Energy", "Dominion Resources Inc"],
@@ -293,7 +293,7 @@ const BILLERS_EAST = [
 },
 {
   "id": 44,
-  "live": true,
+  "live": fasle,
   "name": "Rhode Island Energy",
   "tla": "REI",
   "aliases": ["RI Energy", "Rhode Island Energy"],
@@ -312,6 +312,7 @@ const BILLERS_EAST = [
   ]
 }
 ];
+
 
 
 
