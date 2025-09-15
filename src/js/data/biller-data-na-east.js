@@ -79,13 +79,13 @@ const BILLERS_EAST = [
   },
   {
   "id": 22,
-  "live": true,
+  "live": false,
   "name": "Dominion Energy",
   "tla": "DNE",
   "aliases": ["Dominion Energy", "Dominion Resources Inc"],
   "paymentTypes": ["Utility Bill", "Electric", "Gas"],
   "kbLink": "https://kb.paymentus.io/pages/viewpage.action?pageId=58163398",
-  "adLink": "https://adg-ipn1.paymentus.net/desn?v2=true&lang=en",
+  "adLink": "https://adg-ipn1.paymentus.net/dne?v2=true&lang=en",
   "contacts": [
     { "type": "IVR", "label": "VA Electric / NC (Gas/Electric) IVR", "value": "866-366-4357" },
     { "type": "IVR", "label": "Dominion Gas Ohio IVR", "value": "833-261-1469" },
@@ -105,7 +105,7 @@ const BILLERS_EAST = [
 
   {
     "id": 24,
-    "live": true,
+    "live": false,
     "name": "Duquesne Light Co.",
     "tla": "DUQL",
     "aliases": ["Duquesne Light Company"],
@@ -232,7 +232,7 @@ const BILLERS_EAST = [
   },
   {
     "id": 37,
-    "live": true,
+    "live": false,
     "name": "PPL Electric Utilities",
     "tla": "PPL",
     "aliases": ["PPL Electric"],
@@ -272,13 +272,13 @@ const BILLERS_EAST = [
   },
  {
   "id": 43,
-  "live": true,
+  "live": false,
   "name": "City of Hollywood, FL",
   "tla": "HWFL",
   "aliases": ["Hollywood FL Utilities", "Hollywood Water"],
   "paymentTypes": ["Utilities", "Water"],
-  "kbLink": null,
-  "adLink": null,
+  "kbLink": "https://kb.paymentus.io/display/CSR/HWFL+-+City+of+Hollywood%2C+FL",
+  "adLink": "https://adg-ipn1.paymentus.net/hwfl?v2=true&lang=en",
   "contacts": [
     { "type": "IVR", "label": "IVR", "value": "855-748-4344" },
     { "type": "CSR", "label": "Customer Service (Mon–Thu 7am–6pm)", "value": "954-921-3938" },
@@ -290,7 +290,28 @@ const BILLERS_EAST = [
   "customFields": [
     { "label": "Biller Website", "value": "http://www.hollywoodfl.org/" }
   ]
+},
+{
+  "id": 44,
+  "live": false,
+  "name": "Rhode Island Energy",
+  "tla": "REI",
+  "aliases": ["RI Energy", "Rhode Island Energy"],
+  "paymentTypes": ["Utilities", "Electric", "Gas"],
+  "kbLink": null,
+  "adLink": "https://adg-ipn1.paymentus.net/rei?v2=true&lang=en",
+  "contacts": [
+    { "type": "IVR", "label": "IVR (via Paymentus)", "value": "833-425-1656" },
+    { "type": "CSR", "label": "Customer Service", "value": "855-743-1101" }
+  ],
+  "timezone": "America/New_York",
+  "notes": "Basic registration: AD link and primary IVR/CSR contacts; detailed KB tabs to follow.",
+  "areas": ["401"],
+  "customFields": [
+    { "label": "Biller Website", "value": "https://www.rienergy.com" }
+  ]
 }
 ];
+
 
 
