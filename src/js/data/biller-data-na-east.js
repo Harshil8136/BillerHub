@@ -105,7 +105,7 @@ const BILLERS_EAST = [
 
   {
     "id": 24,
-    "live": true,
+    "live": false,
     "name": "Duquesne Light Co.",
     "tla": "DUQL",
     "aliases": ["Duquesne Light Company"],
@@ -197,7 +197,7 @@ const BILLERS_EAST = [
     "aliases": ["KUB"],
     "paymentTypes": ["Utility Bill"],
     "kbLink": "https://kb.paymentus.io/display/CSR/KNOX+-+Knoxville+Utility+Board",
-    "adLink": "https://adg-ipn1.paymentus.net/knox?v2=true&lang=en",
+    "adLink": "https://ipn.paymentus.com/biller/stde/knox?v2=true",
     "contacts": [
       { "type": "IVR", "label": "Standard IVR", "value": "866-819-0066" },
       { "type": "CSR", "label": "Customer Service", "value": "865-524-2911" }
@@ -293,7 +293,7 @@ const BILLERS_EAST = [
 },
 {
   "id": 44,
-  "live": fasle,
+  "live": false,
   "name": "Rhode Island Energy",
   "tla": "REI",
   "aliases": ["RI Energy", "Rhode Island Energy"],
@@ -312,8 +312,5 @@ const BILLERS_EAST = [
   ]
 }
 ];
-
-
-
 
 
