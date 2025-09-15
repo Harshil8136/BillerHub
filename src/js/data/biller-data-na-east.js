@@ -79,7 +79,7 @@ const BILLERS_EAST = [
   },
   {
   "id": 22,
-  "live": false,
+  "live": true,
   "name": "Dominion Energy",
   "tla": "DNE",
   "aliases": ["Dominion Energy", "Dominion Resources Inc"],
@@ -105,7 +105,7 @@ const BILLERS_EAST = [
 
   {
     "id": 24,
-    "live": false,
+    "live": true,
     "name": "Duquesne Light Co.",
     "tla": "DUQL",
     "aliases": ["Duquesne Light Company"],
@@ -197,7 +197,7 @@ const BILLERS_EAST = [
     "aliases": ["KUB"],
     "paymentTypes": ["Utility Bill"],
     "kbLink": "https://kb.paymentus.io/display/CSR/KNOX+-+Knoxville+Utility+Board",
-    "adLink": "https://ipn.paymentus.com/biller/stde/knox?v2=true",
+    "adLink": "https://adg-ipn1.paymentus.net/knox?v2=true&lang=en",
     "contacts": [
       { "type": "IVR", "label": "Standard IVR", "value": "866-819-0066" },
       { "type": "CSR", "label": "Customer Service", "value": "865-524-2911" }
@@ -289,26 +289,6 @@ const BILLERS_EAST = [
   "areas": ["954","754"],
   "customFields": [
     { "label": "Biller Website", "value": "http://www.hollywoodfl.org/" }
-  ]
-},
-{
-  "id": 44,
-  "live": false,
-  "name": "Rhode Island Energy",
-  "tla": "REI",
-  "aliases": ["RI Energy", "Rhode Island Energy"],
-  "paymentTypes": ["Utilities", "Electric", "Gas"],
-  "kbLink": null,
-  "adLink": "https://adg-ipn1.paymentus.net/rei?v2=true&lang=en",
-  "contacts": [
-    { "type": "IVR", "label": "IVR (via Paymentus)", "value": "833-425-1656" },
-    { "type": "CSR", "label": "Customer Service", "value": "855-743-1101" }
-  ],
-  "timezone": "America/New_York",
-  "notes": "Basic registration: AD link and primary IVR/CSR contacts; detailed KB tabs to follow.",
-  "areas": ["401"],
-  "customFields": [
-    { "label": "Biller Website", "value": "https://www.rienergy.com" }
   ]
 }
 ];
