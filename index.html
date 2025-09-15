@@ -10,7 +10,7 @@
     <meta name="format-detection" content="telephone=no">
     
     <title>Biller Hub</title>
-    
+
     <link rel="icon" href="./assets/favicon.ico" sizes="any">
     <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
     
@@ -23,12 +23,14 @@
     <link rel="stylesheet" href="./src/css/biller-card.css">
     <link rel="stylesheet" href="./src/css/notes.css">
     <link rel="stylesheet" href="./src/css/popover.css">
+    <link rel="stylesheet" href="./src/css/tool-menu.css">
     <link rel="stylesheet" href="./src/css/modal.css">
     <link rel="stylesheet" href="./src/css/drawer.css">
     <link rel="stylesheet" href="./src/css/forms.css">
     <link rel="stylesheet" href="./src/css/sidebar.css">
     <link rel="stylesheet" href="./src/css/toast.css">
     <link rel="stylesheet" href="./src/css/title-effects.css">
+    <link rel="stylesheet" href="./src/css/fee-tool.css">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
@@ -50,6 +52,13 @@
         <div class="header-right">
             <div id="clockWidget" class="clock-widget"></div>
             <div class="popover-wrapper">
+                <button id="toolsBtn" class="icon-btn" aria-label="Open Tools Menu" data-tooltip="Tools (Alt+T)" aria-haspopup="menu" aria-expanded="false">
+                    <i class="fa-solid fa-toolbox"></i>
+                </button>
+                <div id="toolsMenu" class="popover" role="menu" aria-labelledby="toolsBtn" hidden>
+                    </div>
+            </div>
+            <div class="popover-wrapper">
                 <button id="settingsBtn" class="icon-btn" aria-label="Open Settings" aria-haspopup="true" aria-expanded="false" data-tooltip="Settings">
                     <i class="fa-solid fa-cog"></i>
                 </button>
@@ -62,7 +71,6 @@
                         <div class="settings-menu">
                             <button id="settingsMenuFavorites" class="menu-item"><i class="fa-solid fa-star fa-fw"></i><span>Favorites</span></button>
                             <button id="settingsMenuDirectory" class="menu-item"><i class="fa-solid fa-book-bookmark fa-fw"></i><span>Biller Directory</span><kbd>D</kbd></button>
-                            <button id="settingsMenuTools" class="menu-item"><i class="fa-solid fa-toolbox fa-fw"></i><span>Workplace Tools</span><kbd>W</kbd></button>
                             <button id="settingsMenuThemes" class="menu-item"><i class="fa-solid fa-palette fa-fw"></i><span>Themes</span></button>
                         </div>
                         <hr style="border-color: var(--card-border); margin: 0.5rem 0;">
@@ -152,6 +160,7 @@
     
     <script src="./src/js/data/theme-data.js"></script>
     <script src="./src/js/data/kb-articles.js"></script>
+    <script src="./src/js/data/tools-data.js"></script>
     <script src="./src/js/data/locations.js"></script>
     <script src="./src/js/data/biller-data-na-east.js"></script>
     <script src="./src/js/data/biller-data-na-central.js"></script>
@@ -213,7 +222,9 @@
     <script src="./src/js/ui/ui-drawer.js"></script>
     <script src="./src/js/ui/ui-favorites.js"></script>
     <script src="./src/js/ui/ui-location.js"></script>
-    <script src="./src/js/ui/ui-tools.js"></script>
+    <script src="./src/js/ui/ui-tool-menu.js"></script>
+    <script src="./src/js/ui/ui-kb-modal.js"></script>
+    <script src="./src/js/ui/ui-fee-tool.js"></script>
     <script src="./src/js/ui/ui-themes.js"></script>
     <script src="./src/js/ui/ui-notes.js"></script>
     <script src="./src/js/ui/ui-popovers.js"></script>
@@ -222,5 +233,3 @@
     
 </body>
 </html>
-
-
