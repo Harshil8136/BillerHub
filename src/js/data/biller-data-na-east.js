@@ -197,7 +197,7 @@ const BILLERS_EAST = [
     "aliases": ["KUB"],
     "paymentTypes": ["Utility Bill"],
     "kbLink": "https://kb.paymentus.io/display/CSR/KNOX+-+Knoxville+Utility+Board",
-    "adLink": "https://ipn.paymentus.com/biller/stde/knox?v2=true",
+    "adLink": "https://adg-ipn1.paymentus.net/knox?v2=true&lang=en",
     "contacts": [
       { "type": "IVR", "label": "Standard IVR", "value": "866-819-0066" },
       { "type": "CSR", "label": "Customer Service", "value": "865-524-2911" }
@@ -312,6 +312,7 @@ const BILLERS_EAST = [
   ]
 }
 ];
+
 
 
 
