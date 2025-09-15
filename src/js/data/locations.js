@@ -489,7 +489,7 @@ const LOCATION_BILLERS = {
   'Oklahoma, US': [],
   'Oregon, US': ['PAC'],
   'Pennsylvania, US': ['AWK', 'DUQL', 'NSRC', 'PPL', 'PHI'],
-  'Rhode Island, US': [],
+  'Rhode Island, US': ['REI'],
   'South Carolina, US': ['DESN'],
   'South Dakota, US': ['MEC', 'OTPC'],
   'Tennessee, US': ['AWK', 'KNOX'],
@@ -515,6 +515,7 @@ const LOCATION_BILLERS = {
   'Yukon, Northwest Territories and Nunavut, CA': []
 
 };
+
 
 
 
