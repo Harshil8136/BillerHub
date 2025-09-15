@@ -290,7 +290,28 @@ const BILLERS_EAST = [
   "customFields": [
     { "label": "Biller Website", "value": "http://www.hollywoodfl.org/" }
   ]
+},
+{
+  "id": 44,
+  "live": true,
+  "name": "Rhode Island Energy",
+  "tla": "REI",
+  "aliases": ["RI Energy", "Rhode Island Energy"],
+  "paymentTypes": ["Utilities", "Electric", "Gas"],
+  "kbLink": null,
+  "adLink": "https://adg-ipn1.paymentus.net/rei?v2=true&lang=en",
+  "contacts": [
+    { "type": "IVR", "label": "IVR (via Paymentus)", "value": "833-425-1656" },
+    { "type": "CSR", "label": "Customer Service", "value": "855-743-1101" }
+  ],
+  "timezone": "America/New_York",
+  "notes": "Basic registration: AD link and primary IVR/CSR contacts; detailed KB tabs to follow.",
+  "areas": ["401"],
+  "customFields": [
+    { "label": "Biller Website", "value": "https://www.rienergy.com" }
+  ]
 }
 ];
+
 
 
