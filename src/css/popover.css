@@ -1,0 +1,143 @@
+/**
+ * POPOVER STYLES
+ * ==================
+ * This file contains all styles related to popover components.
+ */
+
+.popover-wrapper {
+    position: relative;
+}
+
+.popover {
+    position: absolute;
+    right: 0;
+    width: 300px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--elev-2);
+    z-index: 200;
+}
+
+.popover-header {
+    font-family: var(--font-family-headings);
+    padding: var(--space-md) var(--space-lg);
+    font-weight: 700;
+    border-bottom: 1px solid var(--card-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.popover-header h4 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    flex-grow: 1;
+}
+
+.popover-header .edit-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+.popover-content {
+    padding: var(--space-sm);
+}
+
+.settings-section {
+    padding: 6px var(--space-md);
+}
+
+.settings-menu {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    padding: var(--space-xs);
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    width: 100%;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-md);
+    background-color: transparent;
+    border: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    text-align: left;
+    transition: background-color var(--transition-fast) ease-out, color var(--transition-fast) ease-out;
+    text-decoration: none;
+}
+
+.menu-item:hover {
+    background-color: var(--accent-secondary);
+    color: var(--text-primary);
+}
+
+.menu-item .fa-fw {
+    color: var(--text-tertiary);
+}
+
+.menu-item kbd {
+    margin-left: auto;
+    font-family: var(--font-family);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    background-color: var(--accent-secondary-hover);
+    border: 1px solid var(--card-border);
+    color: var(--text-secondary);
+}
+
+/* --- Tooltips --- */
+[data-tooltip] {
+    position: relative;
+}
+[data-tooltip]::before,
+[data-tooltip]::after {
+    position: absolute;
+    display: block;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 150ms ease-out, transform 150ms ease-out;
+    will-change: opacity, transform;
+    z-index: 1000;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+[data-tooltip]::before {
+    content: attr(data-tooltip);
+    background-color: var(--tooltip-bg);
+    color: var(--tooltip-text);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    font-weight: 500;
+    white-space: nowrap;
+    transform: translateX(-50%) translateY(4px) scale(0.95);
+    bottom: calc(100% + 8px);
+}
+
+[data-tooltip]::after {
+    content: '';
+    border: 5px solid transparent;
+    border-top-color: var(--tooltip-bg);
+    bottom: calc(100% + 3px);
+}
+
+[data-tooltip]:hover::before,
+[data-tooltip]:hover::after,
+[data-tooltip]:focus-visible::before,
+[data-tooltip]:focus-visible::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+}
