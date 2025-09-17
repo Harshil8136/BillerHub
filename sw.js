@@ -4,13 +4,12 @@
  * This file caches the application's assets, enabling offline functionality
  * and significantly improving performance on repeat visits.
  *
- * UPDATED: The cache version has been incremented to v10 to reflect the
- * major UI refactor, including the new Tools menu and the removal of the
- * search worker. The asset list is now fully synchronized with the new
- * file structure.
+ * UPDATED: The cache version has been incremented to v13 to add the
+ * new ui-tooltips.js module to the cache, completing the implementation
+ * of the dynamic tooltip system.
  */
 
-const CACHE_NAME = 'biller-hub-cache-v10';
+const CACHE_NAME = 'biller-hub-cache-v13';
 
 const URLS_TO_CACHE = [
   // --- Core App Shell ---
@@ -61,6 +60,7 @@ const URLS_TO_CACHE = [
   'src/js/core/db.js',
   'src/js/core/data-helpers.js',
   'src/js/core/anim.js',
+  'src/js/core/positioning.js',
   'src/js/core/virtual-list.js',
   'src/js/core/firebase-config.js',
   'src/js/core/telemetry-core.js',
@@ -73,25 +73,26 @@ const URLS_TO_CACHE = [
   'src/js/features/notes-feature.js',
   'src/js/features/app-features.js',
   
-  // --- UI Logic ---
+  // --- UI Logic (Refactored & Complete List) ---
   'src/js/ui/ui-main.js',
   'src/js/ui/ui-templates.js',
-  'src/js/ui/ui-notifications.js',
-  'src/js/ui/ui-settings.js',
   'src/js/ui/ui-analytics.js',
-  'src/js/ui/ui-toasts.js',
   'src/js/ui/ui-biller-card.js',
-  'src/js/ui/ui-search.js',
-  'src/js/ui/ui-modal.js',
   'src/js/ui/ui-drawer.js',
   'src/js/ui/ui-favorites.js',
-  'src/js/ui/ui-location.js',
-  'src/js/ui/ui-tool-menu.js',
-  'src/js/ui/ui-kb-modal.js',
   'src/js/ui/ui-fee-tool.js',
-  'src/js/ui/ui-themes.js',
+  'src/js/ui/ui-kb-modal.js',
+  'src/js/ui/ui-location.js',
+  'src/js/ui/ui-modal.js',
   'src/js/ui/ui-notes.js',
+  'src/js/ui/ui-notifications.js',
   'src/js/ui/ui-popovers.js',
+  'src/js/ui/ui-search.js',
+  'src/js/ui/ui-settings.js',
+  'src/js/ui/ui-themes.js',
+  'src/js/ui/ui-toasts.js',
+  'src/js/ui/ui-tool-menu.js',
+  'src/js/ui/ui-tooltips.js',
 
   // --- Biller-Specific Note Files ---
   'src/live/AETX.js', 'src/live/AWK.js', 'src/live/BGE.js', 'src/live/CEMI.js',
@@ -101,7 +102,9 @@ const URLS_TO_CACHE = [
   'src/live/NSRC.js', 'src/live/NYCH.js', 'src/live/OPPD.js', 'src/live/OTPC.js',
   'src/live/PAC.js', 'src/live/PHI.js', 'src/live/PPL.js', 'src/live/PSG.js',
   'src/live/PSE.js', 'src/live/SDG.js', 'src/live/TGXH.js', 'src/live/WMPT.js',
-  
+  'src/live/CFCO.js', 'src/live/DHNC.js','src/live/MDUU.js','src/live/SRP.js',
+
+
   // --- Main Application ---
   'src/js/main/app-main.js',
 
