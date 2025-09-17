@@ -16,6 +16,7 @@
     <link rel="apple-touch-icon" href="./icon/favicon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="./icon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="./icon/favicon-16x16.png">
+    
     <link rel="stylesheet" href="./src/css/theme.css">
     <link rel="stylesheet" href="./src/css/themes.css">
     <link rel="stylesheet" href="./src/css/base.css">
@@ -41,7 +42,7 @@
     <header class="app-header" role="banner">
         <div class="header-left">
             <div id="areaLookupContainer" class="lookup-container">
-                <button id="areaLookupBtn" class="icon-btn" aria-label="Open Area Lookup" data-tooltip="Area Lookup" data-shortcut="Alt+S">
+                <button id="areaLookupBtn" class="icon-btn" aria-label="Open Area Lookup" data-tooltip="Area Lookup (Alt+S)">
                     <i class="fa-solid fa-map-location-dot"></i>
                 </button>
                 <input type="tel" id="areaLookupInput" class="menu-input" placeholder="Area Code..." aria-label="Area code input" autocomplete="off" maxlength="10">
@@ -58,7 +59,7 @@
                     <i class="fa-solid fa-toolbox"></i>
                 </button>
                 <div id="toolsMenu" class="popover" role="menu" aria-labelledby="toolsBtn" hidden>
-                    </div>
+                </div>
             </div>
             <div class="popover-wrapper">
                 <button id="settingsBtn" class="icon-btn" aria-label="Open Settings" aria-haspopup="true" aria-expanded="false" data-tooltip="Settings">
@@ -72,7 +73,7 @@
                     <div class="popover-content">
                         <div class="settings-menu">
                             <button id="settingsMenuFavorites" class="menu-item"><i class="fa-solid fa-star fa-fw"></i><span>Favorites</span></button>
-                            <button id="settingsMenuDirectory" class="menu-item"><i class="fa-solid fa-book-bookmark fa-fw"></i><span>Biller Directory</span><kbd>D</kbd></button>
+                            <button id="settingsMenuDirectory" class="menu-item"><i class="fa-solid fa-book-bookmark fa-fw"></i><span>Biller Directory</span></button>
                             <button id="settingsMenuThemes" class="menu-item"><i class="fa-solid fa-palette fa-fw"></i><span>Themes</span></button>
                         </div>
                         <hr style="border-color: var(--card-border); margin: 0.5rem 0;">
@@ -196,6 +197,9 @@
     <script src="./src/live/SDG.js"></script>
     <script src="./src/live/TGXH.js"></script>
     <script src="./src/live/WMPT.js"></script>
+    <script src="./src/live/CFCO.js"></script>
+    <script src="./src/live/DHNC.js"></script>
+    <script src="./src/live/MDUU.js"></script>
     
     <script src="./src/js/core/utils.js"></script>
     <script src="./src/js/core/db.js"></script>
@@ -215,22 +219,23 @@
     
     <script src="./src/js/ui/ui-main.js"></script>
     <script src="./src/js/ui/ui-templates.js"></script>
-    <script src="./src/js/ui/ui-notifications.js"></script>
-    <script src="./src/js/ui/ui-settings.js"></script>
     <script src="./src/js/ui/ui-analytics.js"></script>
-    <script src="./src/js/ui/ui-toasts.js"></script>
     <script src="./src/js/ui/ui-biller-card.js"></script>
-    <script src="./src/js/ui/ui-search.js"></script>
-    <script src="./src/js/ui/ui-modal.js"></script>
     <script src="./src/js/ui/ui-drawer.js"></script>
     <script src="./src/js/ui/ui-favorites.js"></script>
-    <script src="./src/js/ui/ui-location.js"></script>
-    <script src="./src/js/ui/ui-tool-menu.js"></script>
-    <script src="./src/js/ui/ui-kb-modal.js"></script>
     <script src="./src/js/ui/ui-fee-tool.js"></script>
-    <script src="./src/js/ui/ui-themes.js"></script>
+    <script src="./src/js/ui/ui-kb-modal.js"></script>
+    <script src="./src/js/ui/ui-location.js"></script>
+    <script src="./src/js/ui/ui-modal.js"></script>
     <script src="./src/js/ui/ui-notes.js"></script>
+    <script src="./src/js/ui/ui-notifications.js"></script>
     <script src="./src/js/ui/ui-popovers.js"></script>
+    <script src="./src/js/ui/ui-search.js"></script>
+    <script src="./src/js/ui/ui-settings.js"></script>
+    <script src="./src/js/ui/ui-themes.js"></script>
+    <script src="./src/js/ui/ui-toasts.js"></script>
+    <script src="./src/js/ui/ui-tool-menu.js"></script>
+    <script src="./src/js/ui/ui-tooltips.js"></script>
     
     <script src="./src/js/main/app-main.js"></script>
     
