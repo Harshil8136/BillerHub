@@ -53,7 +53,7 @@
              <h1 class="app-title">Biller Hub</h1>
         </div>
         <div class="header-right">
-            <div id="clockWidget" class="clock-widget"></div>
+            <button id="clockWidget" class="clock-widget" aria-label="Open Clock Options" aria-haspopup="true" aria-expanded="false"></button>
             <div class="popover-wrapper">
                 <button id="toolsBtn" class="icon-btn" aria-label="Open Tools Menu" data-tooltip="Tools (Alt+T)" aria-haspopup="menu" aria-expanded="false">
                     <i class="fa-solid fa-toolbox"></i>
@@ -101,6 +101,11 @@
                         <label class="toggle-switch">
                             <input type="checkbox" id="toggleTitleAnimation">
                             <span class="switch-label">Animate Title</span>
+                            <div class="switch-track"><div class="switch-handle"></div></div>
+                        </label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="toggleFavoritesSidebar">
+                            <span class="switch-label">Show Favorites Sidebar</span>
                             <div class="switch-track"><div class="switch-handle"></div></div>
                         </label>
                         <hr style="border-color: var(--card-border); margin: 0.5rem 0;">
@@ -218,6 +223,7 @@
     <script src="./src/js/features/theme-feature.js"></script>
     <script src="./src/js/features/location-feature.js"></script>
     <script src="./src/js/features/notes-feature.js"></script>
+    <script src="./src/js/features/weather-feature.js"></script>
     <script src="./src/js/features/app-features.js"></script>
     <script src="./src/js/features/investigation-notes-feature.js"></script>
     
@@ -240,6 +246,8 @@
     <script src="./src/js/ui/ui-toasts.js"></script>
     <script src="./src/js/ui/ui-tool-menu.js"></script>
     <script src="./src/js/ui/ui-tooltips.js"></script>
+    <script src="./src/js/ui/ui-clock.js"></script>
+    <script src="./src/js/ui/ui-shortcuts.js"></script>
     
     <script src="./src/js/main/app-main.js"></script>
     
