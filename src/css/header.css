@@ -1,0 +1,211 @@
+/**
+ * HEADER STYLES
+ * ==================
+ * This file contains all styles related to the main application header,
+ * including the clock and the animated area lookup.
+ */
+
+.app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-md) var(--space-xl);
+    background-color: var(--card-bg);
+    border-bottom: 1px solid var(--card-border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--elev-2);
+    gap: var(--space-lg);
+}
+
+.header-left, .header-center, .header-right {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.header-left { 
+    flex: 1;
+    justify-content: flex-start; 
+}
+
+.header-center { 
+    flex: 2;
+    justify-content: center; 
+}
+
+.header-right { 
+    flex: 1;
+    justify-content: flex-end; 
+}
+
+/* Title Entrance and Hover Animation */
+.app-title { 
+    font-family: var(--font-family-headings); 
+    font-size: 1.5rem; 
+    margin: 0; 
+    font-weight: 700;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity var(--motion-duration-base) var(--motion-ease-spring), 
+                transform var(--motion-duration-base) var(--motion-ease-spring);
+}
+
+.app-title.has-entered-viewport {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Icon Buttons --- */
+.icon-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background-color var(--transition-fast) ease-out, 
+                color var(--transition-fast) ease-out,
+                transform var(--transition-fast) ease-out;
+}
+.icon-btn:hover { 
+    background-color: var(--accent-secondary); 
+    color: var(--text-primary); 
+}
+.icon-btn:active { 
+    transform: scale(0.95); 
+}
+
+/* --- Clock Widget --- */
+.clock-widget {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-md);
+    background-color: var(--accent-secondary);
+    transition: background-color var(--motion-duration-slow) ease-out;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    /* Reset button styles if it's a button element */
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-family: var(--font-family);
+}
+.clock-widget:hover {
+    background-color: var(--accent-secondary-hover);
+}
+.clock-widget .time-details { display: flex; flex-direction: column; line-height: 1.3; }
+.clock-widget .time { font-weight: 600; color: var(--text-primary); }
+.clock-widget .date { font-size: 0.75rem; color: var(--text-secondary); }
+.clock-widget.morning { background-color: color-mix(in srgb, var(--warning) 15%, var(--accent-secondary)); }
+.clock-widget.afternoon { background-color: color-mix(in srgb, var(--success) 15%, var(--accent-secondary)); }
+.clock-widget.evening { background-color: color-mix(in srgb, var(--accent-primary) 15%, var(--accent-secondary)); }
+.clock-widget.night { background-color: color-mix(in srgb, var(--text-tertiary) 20%, var(--accent-secondary)); }
+
+/* Area Lookup Animated Container */
+.lookup-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.lookup-container > .icon-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--elev-1);
+}
+#areaLookupInput {
+    /* Initial state for animation */
+    width: 0;
+    opacity: 0;
+    visibility: hidden;
+    padding: 8px 0;
+    border-width: 0;
+    margin-left: var(--space-sm);
+    overflow: hidden;
+}
+
+/* --- Header Responsiveness --- */
+@media (max-width: 960px) {
+    .header-center .app-title { 
+        font-size: 1.25rem;
+    }
+}
+@media (max-width: 768px) {
+    .clock-widget {
+        display: none;
+    }
+    .header-center {
+        display: none;
+    }
+}
+
+/* --- NEW: Clock Popover Styles --- */
+#clockPopover .popover-content {
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+}
+
+.weather-display {
+    display: flex;
+    gap: var(--space-lg);
+    border-bottom: 1px solid var(--card-border);
+    padding-bottom: var(--space-md);
+}
+
+.weather-item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    color: var(--text-secondary);
+}
+.weather-item .fa-solid {
+    color: var(--accent-primary);
+}
+.weather-details {
+    display: flex;
+    flex-direction: column;
+}
+.weather-temp {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+.weather-location {
+    font-size: 0.8rem;
+}
+.weather-loading {
+    font-style: italic;
+    color: var(--text-tertiary);
+}
+
+.clock-settings .toggle-switch {
+    padding: var(--space-sm) 0;
+}
+.clock-settings .toggle-switch:hover {
+    background-color: transparent;
+}
+
+/* --- NEW: Clock Animations --- */
+.clock-widget .fa-solid {
+    animation: soft-glow 3s ease-in-out infinite alternate;
+}
+
+@keyframes soft-glow {
+    0% {
+        text-shadow: 0 0 2px color-mix(in srgb, var(--accent-primary) 20%, transparent);
+    }
+    100% {
+        text-shadow: 0 0 8px color-mix(in srgb, var(--accent-primary) 50%, transparent);
+    }
+}
