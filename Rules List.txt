@@ -1,65 +1,47 @@
 Rules for AI-Assisted Web Projects
-
-1. Core Philosophy & Environment
-
-The Golden Rule: The project must be fully functional when index.html is opened directly in a browser from the local file system (using the file:/// protocol). Advanced, server-dependent features (like Service Workers for offline caching) should be implemented to degrade gracefully (i.e., not run and not cause errors) in this environment.
-No Servers or Build Tools: The solution must not require a local web server (like "Live Server") or any command-line tools for building, compiling, or package management (npm, Vite, etc.).
+1. Core Philosophy & Environment 🏛️
+The Golden Rule: The project must be fully functional when index.html is opened directly in a browser from the local file system (using the file:/// protocol). Server-dependent features like Service Workers must degrade gracefully, meaning they should not run or cause errors in this environment.
+No Servers or Build Tools: The solution must not require a local web server or any command-line tools for building, compiling, or package management (e.g., npm, Vite).
 Client-Side Only: All code must run entirely in the browser. There is no backend.
-Robustness First: The application must be resilient. This includes providing fallbacks for potentially failing external resources (like CDNs) and handling potential runtime errors gracefully.
+Robustness First: The application must be resilient, providing fallbacks for potentially failing external resources (like CDNs) and handling runtime errors gracefully.
 
-2. Project Structure & Modularity
-
-A highly modular, multi-file structure is mandatory for organization and scalability.
+2. Project Structure & Assets 📁
 JavaScript Modularity: The application logic must be split into multiple, single-responsibility files. The established pattern is:
-Data Files: billers.js, locations.js, kb-articles.js, etc.
-Data-Specific Notes: A src/live/ directory for large, biller-specific data files (e.g., BGE.js).
-Core Logic: app-core.js (global state, DOM cache), app-features.js (settings, analytics), and feature-specific logic files (location-feature.js, notes-feature.js).
-UI Rendering: ui-components.js (UI object definition), ui-notes.js (notes-specific rendering).
-Initialization: app-main.js (the final script that starts the app).
+Data Files: Located in src/js/data/ (e.g., theme-data.js, locations.js).
+Data-Specific Notes: A root /live/ directory for large, biller-specific data files (e.g., BGE.js).
+Core Logic: Located in src/js/core/ and src/js/features/.
+UI Rendering: Located in src/js/ui/.
+Initialization: The main entry point is src/js/main/app-main.js.
 CSS Architecture: Stylesheets must be split for maintainability:
-theme.css: Contains only CSS custom properties (variables) for colors, fonts, and spacing for both light and dark themes. This file controls the "look and feel."
-styles.css: Contains all structural and layout rules for components, animations, and responsive design. This file controls the "shape and behavior."
-Feature-Specific CSS: Additional, self-contained stylesheets for complex components (e.g., notes.css) are encouraged.
+theme.css: Contains CSS variables for the design system (colors, spacing, etc.).
+Component CSS: Separate files for each major component or view (e.g., base.css, header.css, biller-card.css, modal.css).
+Asset Loading: Any new .js or .css file must be added to the appropriate array in src/js/core/loader.js in the correct, dependency-aware order to ensure it is loaded by the browser.
 
-3. Code & Functionality
+3. Code & Functionality 💻
+Core Technologies: The project must only use HTML, CSS, and vanilla JavaScript (ES6+). No frameworks (React, Vue) or external component libraries (Bootstrap) are permitted.
+JavaScript Communication: Since ES Modules (import/export) are forbidden, communication between .js files is achieved via the global scope (e.g., const UI = {}, const Features = {}) and a meticulous script loading order managed by loader.js.
+Defensive Programming:
+Null Checks: Always check if a DOM element exists before attempting to access its properties or methods.
+Error Boundaries: Wrap critical initialization blocks (like the main init() function) in a try...catch block to prevent a single failure from crashing the application.
+Refactoring Integrity: When a function or object is moved from one file to another, all other files that reference that code must be updated to point to its new location.
+Data Contract Consistency: Any function that consumes data from another file must be written to match the exact data structure of the source. If a data source's structure is changed, the consuming function must be updated in the same step.
 
-Core Technologies: The project must only use HTML, CSS, and vanilla JavaScript (ES6+). No frameworks (React, Vue) or external component libraries (Material UI, Bootstrap) are permitted.
-JavaScript Communication & Loading Order:
-No ES Modules: The keywords import/export and <script type="module"> are strictly forbidden to ensure file:/// compatibility.
-Global Scope: Communication between .js files must be achieved by declaring global constants and objects (e.g., const BILLERS = [...], const UI = {}).
-Critical Script Order: The <script> tags in index.html must be ordered meticulously to ensure that data and objects are defined before any script that attempts to use them. The initialization script (app-main.js) must always be last.
-Defensive Programming & Error Handling:
-Null Checks: Always check if a DOM element exists (is not null) before attempting to access its properties or methods.
-Error Boundaries: Wrap critical initialization blocks (like the main init() function) in a try...catch block to prevent a single failure from crashing the entire application and to provide clear error feedback.
-UI/UX & Accessibility:
-User Feedback: All interactive elements must provide clear visual feedback, such as hover effects, active states, and focus indicators (:focus-visible).
-Informative UI: Use tooltips to explain the function of controls and display keyboard shortcuts where applicable.
+4. UI, UX & Accessibility ✨
+User Feedback: All interactive elements must provide clear visual feedback for hover, active, and focus states.
+Tooltip Mandate: Any interactive UI element whose function is not immediately obvious from its design or label must have a data-tooltip attribute providing a concise explanation on hover and focus.
+Modal Behavior: All modal dialogs (.modal-overlay) must be dismissible by clicking on the overlay area outside the main content box. They must also feature a smooth transition animation for opening and closing.
 Accessibility: Use semantic HTML and ARIA attributes where necessary to ensure the application is accessible.
+Data Consistency: All biller-specific notes (e.g., BGE.js) must follow a standardized structure. The standard tabs must be defined in this exact order: alerts (danger), fees (primary), contact (info), channels (info), and system (secondary). Custom tabs may follow.
 
-4. AI Collaboration & Workflow
+5. AI Collaboration & Workflow 🤖
+The Planning Rule: For any request involving multiple files or significant feature changes, I must first devise a detailed plan that includes a diagnosis, a proposed solution, and a complete list of all new and modified files.
+Approval is Mandatory: I will not generate any code until you have explicitly reviewed and approved the plan.
+DOM Caching and Injection Order: The operational sequence must be: (1) Inject HTML templates into the DOM, (2) then cache the newly-added elements by ID, and (3) then attach event listeners to them.
+Output Formatting: My generated code will be clean and will not include any citation markers or other extraneous formatting.
+File Naming: New filenames should be concise and descriptive (e.g., loader.js instead of asset-and-dependency-loader.js).
 
-The Planning Rule: For any request involving multiple files or significant feature changes, the AI must first devise a detailed plan.
-Plan Requirements: The plan must include:
-A clear diagnosis of the problem or an outline of the new feature.
-A proposed solution, detailing the implementation strategy.
-A complete list of all new and modified files.
-Approval is Mandatory: The AI must not generate any code until the user has explicitly reviewed and approved the plan.
-
-
-5. UI & Data Consistency:
-UI & Data Consistency:
-All biller-specific notes (e.g., BGE.js, PAC.js) must follow a standardized structure to ensure a consistent user experience.
-Common information must be organized into a set of standard, short-named tabs. The standard tabs are: Alerts, Fees, Contact, Channels, and System.
-The standard tabs must be defined in the following order within the notes object to ensure a consistent on-page sequence:
-alerts (danger color)
-fees (primary color)
-contact (info color)
-channels (info color)
-system (secondary color)
-Information unique to a biller that does not fit into a standard category should be placed in a new, custom-named tab after the standard tabs.
 
 //////////////////////////////////////////////
-
 
 
 Project Rules
